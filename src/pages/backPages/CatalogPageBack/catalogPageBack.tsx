@@ -7,12 +7,13 @@ import "./catalogPageBack.css";
 
 export const CatalogPageBack: React.FC = () => {
   const { username, permission } = React.useContext(LoginContext);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   return (
     <>
       <div style={{ minHeight: "100vh" }}>
-        <NavBar isUser={false} rightComponent={<NavButtonsBack permissionLevel={permission} pageName='catalog' />} />
-        <CatalogPage isUser={false} />
+        <NavBar isUser={false} setIsLoading={setIsLoading} rightComponent={<NavButtonsBack permissionLevel={permission} pageName='catalog' />} />
+        <CatalogPage isLoading={isLoading} setIsLoading={setIsLoading} isUser={false} />
       </div>
     </>
   );

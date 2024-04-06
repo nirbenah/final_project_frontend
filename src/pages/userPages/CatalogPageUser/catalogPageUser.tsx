@@ -7,13 +7,13 @@ import { LoginContext } from '../../../LoginContext';
 
 export const CatalogPageUser: React.FC = () => {
   const { username } = React.useContext(LoginContext);
-
+  const [isLoading, setIsLoading] = React.useState(false);
 
   return (
     <>
       <div style={{minHeight:"100vh"}}>
-        <NavBar isUser={true} rightComponent={<NavButtonsUser pageName={"catalog"} />} />
-        <CatalogPage isUser={true}/>
+        <NavBar isUser={true} setIsLoading={setIsLoading} rightComponent={<NavButtonsUser pageName={"catalog"} />} />
+        <CatalogPage isLoading={isLoading} setIsLoading={setIsLoading} isUser={true}/>
       </div>
     </>
   );

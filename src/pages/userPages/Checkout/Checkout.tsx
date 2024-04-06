@@ -92,7 +92,7 @@ export const Checkout: React.FC = () => {
 
   return (
     <>
-      <NavBar isUser={true} rightComponent={<NavButtonsUser pageName={"checkout"} />} />
+      <NavBar setIsLoading={setIsLoading} isUser={true} rightComponent={<NavButtonsUser pageName={"checkout"} />} />
       {isLoading ? <Loader /> :
         <div className="checkout-page-container" style={{ minHeight: "100vh" }}>
           <h1>Checkout</h1>

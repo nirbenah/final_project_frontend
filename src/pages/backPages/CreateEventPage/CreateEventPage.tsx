@@ -77,7 +77,7 @@ const CreateEventPage: React.FC = () => {
     <>
       {isLoading ? <Loader /> : null}
       <div className="create-new-event-container">
-        <NavBar isUser={false} rightComponent={<NavButtonsBack permissionLevel={permission} pageName='addEvent'/>} />
+        <NavBar isUser={false} setIsLoading={setIsLoading} rightComponent={<NavButtonsBack permissionLevel={permission} pageName='addEvent'/>} />
         <h1 className='create-event-header'>Create New Event</h1>
         <div className="event-form-container">
           <AddEventForm onSubmit={handleCreateEvent} onchange={handleInputChange} />

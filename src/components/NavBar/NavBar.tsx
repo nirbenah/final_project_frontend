@@ -16,11 +16,11 @@ import { useNavigate } from 'react-router-dom';
 interface NavBarProps {
   isUser: boolean;
   rightComponent: React.ReactNode;
+  setIsLoading: (isLoading: boolean) => void;
 }
 
-const NavBar: React.FC<NavBarProps> = ({ isUser, rightComponent }) => {
+const NavBar: React.FC<NavBarProps> = ({ isUser, rightComponent, setIsLoading }) => {
   const userImage = isUser ? userPic : workerPic;
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [errMsg, setErrMsg] = React.useState<string>('');
   const { username, permission, nextEvent, setUsername, setPermission, setNextEvent } = React.useContext(LoginContext);
   const navigate = useNavigate();
@@ -51,7 +51,6 @@ const NavBar: React.FC<NavBarProps> = ({ isUser, rightComponent }) => {
 
   return (
     <>
-      {isLoading ? <Loader /> : null}
       <nav className="navbar navbar-dark" style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)' }}>
         <div className="container-fluid">
           <div className="d-flex align-items-center">

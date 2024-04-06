@@ -85,7 +85,7 @@ const EventPageUser: React.FC = () => {
   return (
     <>
       <div className="event-page-container" style={{ minHeight: '100vh' }}>
-        <NavBar isUser={true} rightComponent={<NavButtonsUser pageName={"catalog"} />} />
+        <NavBar isUser={true} setIsLoading={setIsLoading} rightComponent={<NavButtonsUser pageName={"catalog"} />} />
         {isLoading ? <Loader /> : null}
         {errMsg ? <p style={{justifyContent:"center",display:"flex",flexDirection:"column"}} className="error-msg">{errMsg}</p> : null}
         {event &&

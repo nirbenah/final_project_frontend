@@ -37,7 +37,7 @@ const RefundPage: React.FC = () => {
   return (
     <>
       <div className="refund-container" style={{ minHeight: '100vh' }}>
-        <NavBar isUser={true} rightComponent={<NavButtonsUser pageName={"refund"} />} />
+        <NavBar isUser={true} setIsLoading={setIsLoading} rightComponent={<NavButtonsUser pageName={"refund"} />} />
         <div className="refund">
           <h1>Refund Request</h1>
           <p>Please insert the order ID of the item you would like to refund:</p>

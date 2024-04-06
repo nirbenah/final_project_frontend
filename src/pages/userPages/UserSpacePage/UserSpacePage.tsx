@@ -124,10 +124,8 @@ const UserSpacePage: React.FC = () => {
   return (
     <>
       <div className="user-page-container" style={{ minHeight: '100vh' }}>
-        <NavBar isUser={true} rightComponent={<NavButtonsUser pageName={"userSpace"} />} />
+        <NavBar isUser={true} setIsLoading={setLoading} rightComponent={<NavButtonsUser pageName={"userSpace"} />} />
         <h1>User Space - {username}</h1>
-
-
         {Loading ? <Loader /> :
         errMsg ? <p className="error-msg">{errMsg}</p> :
           ordersList && ordersList.length !== 0 ? (
@@ -162,7 +160,6 @@ const UserSpacePage: React.FC = () => {
                       </Box>
 
                     </Modal>
-
                   </div>
                 ))}
               </div>  

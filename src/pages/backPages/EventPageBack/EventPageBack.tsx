@@ -64,7 +64,7 @@ const EventPage: React.FC = () => {
     <>
       
       <div className="event-page-container" style={{ minHeight: '100vh' }}>
-        <NavBar isUser={false} rightComponent={<NavButtonsBack permissionLevel={permission} handleEditDateClick={handleOpenPopup} pageName='event' />} />
+        <NavBar isUser={false} setIsLoading={setIsLoading} rightComponent={<NavButtonsBack permissionLevel={permission} handleEditDateClick={handleOpenPopup} pageName='event' />} />
         {isLoading ? <Loader /> : null}
         {event &&
           <>

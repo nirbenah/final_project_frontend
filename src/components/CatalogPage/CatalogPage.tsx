@@ -11,10 +11,11 @@ import defaultEventImg from '../../assets/default-event.png';
 
 export interface CatalogPageProps {
   isUser: boolean;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const CatalogPage: React.FC<CatalogPageProps> = ({ isUser }) => {
-  const [loading, setLoading] = useState(false);
+export const CatalogPage: React.FC<CatalogPageProps> = ({ isUser, isLoading, setIsLoading }) => {
   const [eventsPerPage, setEventsPerPage] = useState<number>(10);
   const [eventsList, setEventsList] = useState<Event[]>([]);
   const [page, setPage] = useState(1);
@@ -23,14 +24,14 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ isUser }) => {
 
   async function getEvents(pageNumber: number) {
     let fetched_events;
-    setLoading(true);
+    setIsLoading(true);
     if (isUser) {
       fetched_events = await Api.getAvailableEvents({ page: pageNumber, limit: eventsPerPage });
     }
     else {
       fetched_events = await Api.getAllEvents({ page: pageNumber, limit: eventsPerPage });
     }
-    setLoading(false);
+    setIsLoading(false);
     if (fetched_events.status === APIStatus.Success) {
       setEventsList(fetched_events.data.events);
       setPageCount(Math.ceil(fetched_events.data.total / eventsPerPage));
@@ -62,7 +63,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ isUser }) => {
     <>
       <div className="catalog-page-container">
         <h1>Event Catalog</h1>
-        {loading ? <Loader isPartial={true} /> :
+        {isLoading ? <Loader isPartial={true} /> :
           errMsg ? <p className="error-msg">{errMsg}</p> :
             eventsList.length === 0 ? <p>No events to show</p> :
               <>

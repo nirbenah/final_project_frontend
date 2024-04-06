@@ -7,6 +7,7 @@ import NavBar from '../../../components/NavBar/NavBar';
 import NavButtonsUser from '../../../components/NavButtonsUser/NavButtonsUser';
 
 export const SuccessPage: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false); 
   const location = useLocation();
   const state = location.state as any;
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ export const SuccessPage: React.FC = () => {
 
   return (
     <>
-      <NavBar isUser={true} rightComponent={<NavButtonsUser pageName={"success"} />} />
+      <NavBar isUser={true} setIsLoading={setIsLoading} rightComponent={<NavButtonsUser pageName={"success"} />} />
       <div className="success-page-container" style={{ minHeight: "100vh" }}>
         <div className="success-message">
           <h2>Congratulations! Enjoy!</h2>
