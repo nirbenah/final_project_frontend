@@ -2,7 +2,8 @@ import React, { useRef, useState, useEffect, useContext } from "react";
 import "../LoginAndSignUp.css";
 import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom';
-import { AuthApi, APIStatus, APIResponse } from '../../../api/authApi';
+import { AuthApi } from '../../../api/authApi';
+import { APIStatus } from '../../../api/Api';
 import { CircularProgress } from "@mui/material";
 import { LoginContext } from '../../../LoginContext';
 

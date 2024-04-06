@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import datePng from '../../assets/date.png';
 import UpdatePrivilegesDialog from '../UpdatePrivilegesDialog/UpdatePrivilegesDialog';
-import { AuthApi, APIStatus } from '../../api/authApi';
+import { AuthApi } from '../../api/authApi';
+import { APIStatus } from '../../api/Api';
 
 interface NavButtonsBackProps {
     permissionLevel: string;

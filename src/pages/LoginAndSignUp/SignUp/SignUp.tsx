@@ -4,7 +4,8 @@ import React, { useRef, useState, useEffect } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TextField from '@mui/material/TextField';
-import { AuthApi, APIStatus } from '../../../api/authApi';
+import { AuthApi } from '../../../api/authApi';
+import { APIStatus } from '../../../api/Api';
 import { CircularProgress } from "@mui/material";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
