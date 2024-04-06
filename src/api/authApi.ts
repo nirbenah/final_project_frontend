@@ -1,23 +1,10 @@
 import axios from "axios";
+import { APIResponse, APIStatus } from "./Api";
 
 interface Credentials {
     username: string;
     password: string;
 }
-
-
-export interface APIResponse {
-    status: APIStatus;
-    data?: any;
-}
-
-export enum APIStatus {
-    Success,
-    BadRequest,
-    Unauthorized,
-    ServerError
-}
-
 
 const API_GATEWAY_URL = "http://localhost:4000";
 

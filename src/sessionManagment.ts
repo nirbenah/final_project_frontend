@@ -1,5 +1,5 @@
 import { AuthApi } from './api/authApi';
-import { APIStatus } from './api/authApi';
+import { APIStatus } from './api/Api';
 import { Api } from './api/Api';
 import { getDate, getTime } from './utils';
 
