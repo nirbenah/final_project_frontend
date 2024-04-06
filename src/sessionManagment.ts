@@ -2,6 +2,7 @@ import { AuthApi } from './api/authApi';
 import { APIStatus } from './api/Api';
 import { Api } from './api/Api';
 import { getDate, getTime } from './utils';
+import { useNavigate } from 'react-router-dom';
 
 export interface UserInfo {
     username: string;
@@ -9,7 +10,8 @@ export interface UserInfo {
 }
 
 export const Logout = async () => {
-    window.location.href = '/login';
+    const navigate = useNavigate();
+    navigate('/login');
     return;
 };
 

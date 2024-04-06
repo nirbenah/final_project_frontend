@@ -11,6 +11,7 @@ import ErrorPopup from '../ErrorPopUp/ErrorPopUp';
 import Loader from '../Loader/Loader';
 import { handleGetUserInfo, handleGetWorkerInfo } from '../../sessionManagment';
 import { LoginContext } from '../../LoginContext';
+import { useNavigate } from 'react-router-dom';
 
 interface NavBarProps {
   isUser: boolean;
@@ -22,6 +23,7 @@ const NavBar: React.FC<NavBarProps> = ({ isUser, rightComponent }) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [errMsg, setErrMsg] = React.useState<string>('');
   const { username, nextEvent, setUsername, setPermission, setNextEvent } = React.useContext(LoginContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isUser) {
@@ -37,7 +39,7 @@ const NavBar: React.FC<NavBarProps> = ({ isUser, rightComponent }) => {
     const res = await AuthApi.logout();
     setIsLoading(false);
     if (res.status === APIStatus.Success) {
-      window.location.href = '/login';
+      navigate('/login');
       return;
     }
     setErrMsg('Failed to logout, please try again');

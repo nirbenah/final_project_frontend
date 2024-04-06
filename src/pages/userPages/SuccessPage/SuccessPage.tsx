@@ -7,18 +7,19 @@ import NavBar from '../../../components/NavBar/NavBar';
 import NavButtonsUser from '../../../components/NavButtonsUser/NavButtonsUser';
 
 export const SuccessPage: React.FC = () => {
-  const handleBackToCatalog = () => {
-    window.location.href = "/main_user";
-  };
-
   const location = useLocation();
   const state = location.state as any;
+  const navigate = useNavigate();
 
   const orderId = state?.orderId;
   const eventTitle = state?.eventTitle;
   const ticketType = state?.ticketType;
   const quantity = state?.quantity;
   const pricePerTicket = state?.pricePerTicket;
+
+  const handleBackToCatalog = () => {
+    navigate('/main_user');
+  };
 
   console.log(state);
   if (!state || !orderId || !eventTitle || !ticketType || !quantity || !pricePerTicket) {

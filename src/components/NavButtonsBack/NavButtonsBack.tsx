@@ -3,6 +3,7 @@ import datePng from '../../assets/date.png';
 import UpdatePrivilegesDialog from '../UpdatePrivilegesDialog/UpdatePrivilegesDialog';
 import { AuthApi } from '../../api/authApi';
 import { APIStatus } from '../../api/Api';
+import { useNavigate } from 'react-router-dom';
 
 interface NavButtonsBackProps {
     permissionLevel: string;
@@ -13,9 +14,10 @@ interface NavButtonsBackProps {
 const NavButtonsBack: React.FC<NavButtonsBackProps> = ({ permissionLevel, handleEditDateClick, pageName }) => {
     let buttons: JSX.Element | null = null;
     const [openDialog, setOpenDialog] = useState(false);
+    const navigate = useNavigate();
 
     const handleCreateEventClick = () => {
-        window.location.href = '/create-event';
+        navigate('/create-event');
         console.log("Create event clicked");
     };
 

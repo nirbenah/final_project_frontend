@@ -1,5 +1,5 @@
 import '../LoginAndSignUp.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useRef, useState, useEffect } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,6 +21,7 @@ export const SignUp: React.FC = () => {
     const userRef = useRef<HTMLInputElement>(null); // set the focus on the user input when the component loads
     const errRef = useRef<HTMLInputElement>(null); // set the focus on the error
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
 
     const [username, setUsername] = useState('');
     const [validName, setValidName] = useState(false);
@@ -35,6 +36,7 @@ export const SignUp: React.FC = () => {
     const [matchFocus, setMatchFocus] = useState(false);
 
     const [errMsg, setErrMsg] = useState('');
+    
 
     useEffect(() => {
         if (userRef.current !== null) {
@@ -57,13 +59,6 @@ export const SignUp: React.FC = () => {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        // TODO: remove after checkoing everything is working
-        // const v1 = USER_REGEX.test(username);
-        // const v2 = PWD_REGEX.test(pwd);
-        // if (!v1 || !v2) {
-        //     setErrMsg("Invalid Entry");
-        //     return;
-        // }
         if (pwd.length === 0 || username.length === 0) {
             setErrMsg(SignUpErrorMessages.required);
             return;
@@ -73,7 +68,7 @@ export const SignUp: React.FC = () => {
         setIsLoading(false);
 
         if (res.status === APIStatus.Success) {
-            window.location.href = '/login';
+            navigate('/login');
             return;
         }
         // failed: 'Sign Up failed, please try again'

@@ -10,7 +10,7 @@ import {  formatDate } from '../../../utils'
 import Loader from '../../../components/Loader/Loader'
 import { LoginContext } from '../../../LoginContext'
 import { APIStatus, Api } from '../../../api/Api';
-
+import { useNavigate } from 'react-router-dom'
 
 const EventPage: React.FC = () => {
   const [popupOpen, setPopupOpen] = useState(false);
@@ -19,6 +19,8 @@ const EventPage: React.FC = () => {
   const [event, setEvent] = useState<Event>();
   const [eventId, setEventId] = useState<string>(useParams().eventTitle as string);
   const [errMsg, setErrMsg] = useState('');
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     async function getEvent() {
@@ -46,7 +48,7 @@ const EventPage: React.FC = () => {
     }
     else{
       setPopupOpen(false);
-      window.location.reload();
+      navigate(0);
     }
   };
 

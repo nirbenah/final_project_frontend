@@ -10,25 +10,7 @@ import { APIStatus, Api } from '../../../api/Api'
 import { LoginContext } from '../../../LoginContext'
 import { SelectChangeEvent } from '@mui/material';
 import ErrorPopup from '../../../components/ErrorPopUp/ErrorPopUp';
-
-// const dummy_event=  {
-//   title: "eventtttt",
-//   category: "Festival",
-//   organizer: "Adi Toledano",
-//   description: "this is a long decsription",
-//   start_date: new Date("2023-01-01T15:30") ,
-//   end_date: new Date("2023-01-02T15:30"),
-//   location: "Habima",
-//   tickets: [
-//     {
-//       name: "General Admission",
-//       quantity: 100,
-//       price: 30,
-//       available: 50
-//     }
-//   ],
-//   image: "https://s.hs-data.com/bilder/teamfotos/640x360/1181.jpg" 
-// } as Event;
+import { useNavigate } from 'react-router-dom'
 
 const clearEvent = {
   title: '',
@@ -49,6 +31,7 @@ const CreateEventPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errMsg, setErrMsg] = useState('');
   const { username, permission } = React.useContext(LoginContext);
+  const navigate = useNavigate();
 
 
   const handleAddTicket = (ticket: Ticket) => {
@@ -81,7 +64,7 @@ const CreateEventPage: React.FC = () => {
     if(res.status === APIStatus.Success) {
       console.log('Event created successfully');
       alert('Event created successfully');
-      window.location.reload();
+      navigate(0)
     }
     else {
       console.log('Failed to create event');

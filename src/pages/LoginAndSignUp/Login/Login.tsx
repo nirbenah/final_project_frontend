@@ -6,6 +6,7 @@ import { AuthApi } from '../../../api/authApi';
 import { APIStatus } from '../../../api/Api';
 import { CircularProgress } from "@mui/material";
 import { LoginContext } from '../../../LoginContext';
+import { useNavigate } from "react-router-dom";
 
 const LoginErrorMessages = {
     required: 'Username and password are required',
@@ -23,6 +24,7 @@ export const Login: React.FC = () => {
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const appContext = useContext(LoginContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (userRef.current !== null) {
@@ -40,11 +42,11 @@ export const Login: React.FC = () => {
         setIsLoading(false);
         if(res.status === APIStatus.Success) {
             if (res.data === "U") {
-                window.location.href = "/main_user";
+                navigate('/main_user');
                 return;
             }
             if(res.data === "A" || res.data === "W" || res.data === "M") {
-                window.location.href = "/main_back";
+                navigate('/main_back');
                 return;
             }
         }
