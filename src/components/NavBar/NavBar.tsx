@@ -22,15 +22,19 @@ const NavBar: React.FC<NavBarProps> = ({ isUser, rightComponent }) => {
   const userImage = isUser ? userPic : workerPic;
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [errMsg, setErrMsg] = React.useState<string>('');
-  const { username, nextEvent, setUsername, setPermission, setNextEvent } = React.useContext(LoginContext);
+  const { username, permission, nextEvent, setUsername, setPermission, setNextEvent } = React.useContext(LoginContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isUser) {
-      handleGetUserInfo(setIsLoading, setUsername, setNextEvent);
+      if(!handleGetUserInfo(setIsLoading, setUsername, setPermission, setNextEvent)){
+        navigate('/login');
+      }
     }
     else {
-      handleGetWorkerInfo(setIsLoading, setUsername, setPermission);
+      if(!handleGetWorkerInfo(setIsLoading, setUsername, setPermission)){
+        navigate('/login');
+      }
     }
   }, []);
 

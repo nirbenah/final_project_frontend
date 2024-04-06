@@ -2,29 +2,23 @@ import { AuthApi } from './api/authApi';
 import { APIStatus } from './api/Api';
 import { Api } from './api/Api';
 import { getDate, getTime } from './utils';
-import { useNavigate } from 'react-router-dom';
 
 export interface UserInfo {
     username: string;
     permission: string;
 }
 
-export const Logout = async () => {
-    const navigate = useNavigate();
-    navigate('/login');
-    return;
-};
-
-export const handleGetUserInfo = async (setIsLoading: any, setUsername: any, setNextEvent: any) => {
+export const handleGetUserInfo = async (setIsLoading: any, setUsername: any, setPermission:any, setNextEvent: any) => {
     setIsLoading(true);
     const authApiRes = await AuthApi.getUserInfo();
     setIsLoading(false);
     if (authApiRes.status === APIStatus.Success) {
         const userInfo = authApiRes.data as UserInfo;
         if (userInfo.permission !== 'U') {
-            Logout();
+            return false;
         }
         setUsername(userInfo.username);
+        setPermission(userInfo.permission);
         const apiRes = await Api.getNextEvent(userInfo.username);
         if (apiRes.status === APIStatus.Success) {
             const nextEventTitle = apiRes.data.eventTitle;
@@ -40,10 +34,9 @@ export const handleGetUserInfo = async (setIsLoading: any, setUsername: any, set
     }
     // cookies not found or not valid
     else {
-        Logout();
+        return false;
     }
-    
-
+    return true;
 };
 
 export const handleGetWorkerInfo = async (setIsLoading: any, setUsername: any, setPermission: any) => {
@@ -53,14 +46,15 @@ export const handleGetWorkerInfo = async (setIsLoading: any, setUsername: any, s
     if (res.status === APIStatus.Success) {
         const userInfo = res.data as UserInfo;
         if (userInfo.permission === 'U') {
-            Logout();
+            return false;
         }
         setUsername(userInfo.username);
         setPermission(userInfo.permission);
     }
     // cookies not found or not valid
     else {
-        Logout();
+        return false;
     }
+    return true;
 };
 
