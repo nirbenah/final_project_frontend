@@ -128,8 +128,8 @@ const UserSpacePage: React.FC = () => {
         <h1>User Space - {username}</h1>
 
 
-        {Loading ? <Loader /> : null}
-        {errMsg ? <p className="error-msg">{errMsg}</p> :
+        {Loading ? <Loader /> :
+        errMsg ? <p className="error-msg">{errMsg}</p> :
           ordersList && ordersList.length !== 0 ? (
             <>
               <h2>Order History</h2>
