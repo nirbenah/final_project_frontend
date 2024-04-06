@@ -66,7 +66,7 @@ export const Login: React.FC = () => {
     return (
         <div className="sign-page">
             <div className="sign-form-container">
-                <h1>Login {appContext.username}</h1>
+                <h1>Login</h1>
                 <div className="sign-form-group">
                     <div className="sign-form-input">
                         <TextField
