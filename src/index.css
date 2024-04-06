@@ -1,0 +1,91 @@
+:root {
+  font-family: Roboto, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #15c28021;
+  margin: 0 auto;
+  text-align: center;
+  min-height: 100vh;
+
+  --primary-color: #15c280;
+  --secondary-color: #3898ff;
+}
+
+body {
+  font-family: Roboto, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  height: 100%;
+  width: 70%;
+  margin: auto;
+  padding: 0px;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+.container{
+  min-height:100vh;
+}
+/* Headers */
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  padding-top: 20px;
+}
+
+.headers{
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+/* Inputs */
+
+/* Buttons */
+
+.blue-buttons, .orange-buttons, .nav-buttons {
+  border:none;
+  margin-left:10px;
+  border-radius: 18px;
+  padding: 8px 12px;
+  transition: background-color 0.3s;
+  font-weight: 500;
+}
+
+
+.nav-buttons{
+  background-color: white;
+}
+
+.nav-buttons:hover{
+  background-color: #f2f2f2;
+}
+
+.blue-buttons {
+  background-color: #3898ff;
+  color:white;
+}
+
+.blue-buttons:hover {
+  background-color: #0056b3;
+}
+
+.blue-buttons.active {
+  background-color: #0056b3;
+}
+
+
+.orange-buttons {
+  background-color: #E79A26;
+  color:white;
+}
+
+.orange-buttons:hover {
+  background-color: #FFC266;
+}
+
+.orange-buttons:active {
+  background-color: #CC7F00;
+}

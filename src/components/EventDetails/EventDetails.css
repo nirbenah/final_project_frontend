@@ -1,0 +1,45 @@
+.event-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .event-details-top{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.507));
+    background-size: cover;
+    background-position: center; 
+
+    padding: 20px;
+  }
+  
+  .event-image img {
+    max-width: 350px;
+    max-height: 400px;
+  }
+
+  .event-type,
+  .event-date {
+    margin-left: 20px;
+    height: fit-content;
+    text-align: left;
+    font-size: 16px; 
+    color: #f3f3f3;
+  }
+  .event-type h3{
+    padding-bottom: 10px;
+  }
+
+  .event-date img{
+    width: 20px;
+  }
+  
+  
+  .event-description p {
+    margin:20px;
+    display: flex;
+    align-items: flex-start;
+  }

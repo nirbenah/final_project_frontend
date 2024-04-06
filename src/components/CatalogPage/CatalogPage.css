@@ -1,0 +1,58 @@
+/* catalogPage.css */
+.catalog-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.catalog-events{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    grid-auto-rows:max-content;
+    gap: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 100%;
+}
+
+.catalog-event{
+    margin-bottom: 20xp;
+    border: 2px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+    transition: background-color 0.3s;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+}
+
+.catalog-event:hover{
+    border: 2px solid #15c280;
+    background-color: #ebebeb86;
+    cursor:pointer;
+}
+
+/* Event image */
+.catalog-event img {
+    width: 100%;
+    height: 50%;
+    border: 2px solid #ccc; 
+    border-radius: 8px; 
+}
+
+/* Event details */
+.catalog-event h2,
+.catalog-event p {
+    margin: 0; /* Reset margin to ensure consistent spacing */
+}
+
+.catalog-event h2 {
+    font-size: 1.2rem; 
+    margin-top: 10px; 
+}
+
+.catalog-event-details {
+    padding: 0 10px;
+    text-align: left; 
+}

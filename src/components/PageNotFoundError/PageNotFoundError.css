@@ -1,0 +1,22 @@
+.error-state-container {
+    background-color: #e9e9e9ab; /* Light gray background */
+  }
+  
+  .error-state-content {
+    background-color: white;
+    width: fit-content;
+    margin: auto;
+    padding: 50px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  }
+  
+  .error-state-container h2 {
+    color: #35dc96; 
+    margin-bottom: 20px;
+  }
+  
+  .error-state-container p {
+    color: #555758; 
+  }
+  

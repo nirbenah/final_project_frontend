@@ -1,0 +1,65 @@
+
+ .order-history {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding:50px;
+  }
+
+  .no-orders{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .purchase {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .purchase-details {
+    display: flex;
+    align-items: center;
+  }
+  
+  .purchuse-event-image {
+    max-width: 200px;
+    height: auto;
+    margin-right: 20px;
+  }
+  
+  .purchase-event-details {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .purchuse-ticket-details {
+    margin-left: auto;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+    
+  .modal-event-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal-event-img {
+    margin-bottom: 20px;
+  }
+  
+  .modal-event-details {
+    text-align: left;
+  }
+  
+  .modal-event-icon {
+    width: 20px;
+    margin-right: 5px; 
+  }
+  

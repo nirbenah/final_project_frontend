@@ -1,0 +1,18 @@
+.expiry-date {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.checkout-form div{
+    margin-bottom: 10px;
+}
+
+.checkout-form input {
+    text-align: left;
+    width: 100%;
+}
+
+.checkout-form {
+    margin-right: 100px;
+}

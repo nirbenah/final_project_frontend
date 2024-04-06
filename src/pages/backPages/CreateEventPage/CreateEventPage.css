@@ -1,0 +1,22 @@
+.event-form-container {
+  max-width: 800px;
+  padding: 20px;
+  margin:auto;
+  display: grid;
+  margin: auto;
+}
+
+.create-event-header {
+  margin-bottom: 40px;
+}
+
+.add-tickets-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+#submit-button{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
