@@ -48,7 +48,7 @@ export enum APIStatus {
 }
 
 
-const API_GATEWAY_URL = "http://localhost:4000";
+const API_GATEWAY_URL = "https://apigatewayandauth.onrender.com";
 
 
 export const Api = {
