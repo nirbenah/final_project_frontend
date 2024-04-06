@@ -57,6 +57,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ isUser }) => {
     handlePageChange(1);
   };
 
+
   return (
     <>
       <div className="catalog-page-container">
@@ -94,13 +95,13 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ isUser }) => {
                     </div>
                   ))}
                 </div>
-                <Pagination
-                  pageCount={pageCount}
-                  onPageChange={handlePageChange}
-                />
+
               </>
         }
-
+        <Pagination
+          pageCount={pageCount}
+          onPageChange={handlePageChange}
+        />
       </div>
     </>
   );

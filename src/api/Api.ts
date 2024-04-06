@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Event, Ticket, paymentPayload } from "../types"
+import { Event, paymentPayload } from "../types"
 
 interface GetCommentsCredentials {
     eventId: string,
@@ -25,10 +25,6 @@ interface PostEventCredentials {
     event: Event
 }
 
-interface GetOrdersByUserCredentials {
-    userId: string
-}
-
 export interface UserInfo {
     username: string;
     permission: string;
@@ -48,8 +44,8 @@ export enum APIStatus {
 }
 
 
-const API_GATEWAY_URL = "https://apigatewayandauth.onrender.com";
-
+// const API_GATEWAY_URL = "https://apigatewayandauth.onrender.com";
+const API_GATEWAY_URL = "http://localhost:4000";
 
 export const Api = {
 

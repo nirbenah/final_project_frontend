@@ -165,13 +165,13 @@ const UserSpacePage: React.FC = () => {
 
                   </div>
                 ))}
-              </div>
-              <Pagination pageCount={pageCount} onPageChange={handlePageChange} />
+              </div>  
             </>) :
             <div className="no-orders">
               <h2>No orders found...</h2>
             </div>
         }
+        <Pagination pageCount={pageCount} onPageChange={handlePageChange} />
       </div>
     </>
 
