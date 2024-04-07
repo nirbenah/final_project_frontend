@@ -64,6 +64,7 @@ const EventPageUser: React.FC = () => {
       setIsLoading(false);
       if (response.status === APIStatus.Success) {
         // Navigate to checkout page with state data
+        localStorage.setItem('timeLeft', (120).toString());
         navigate(
           '/checkout',
           {
