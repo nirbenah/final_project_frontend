@@ -27,12 +27,12 @@ const NavBar: React.FC<NavBarProps> = ({ isUser, rightComponent, setIsLoading })
 
   useEffect(() => {
     if (isUser) {
-      if(!handleGetUserInfo(setIsLoading, setUsername, setPermission, setNextEvent)){
+      if(!handleGetUserInfo(setIsLoading, username, setUsername, setPermission, setNextEvent)){
         navigate('/login');
       }
     }
     else {
-      if(!handleGetWorkerInfo(setIsLoading, setUsername, setPermission)){
+      if(!handleGetWorkerInfo(setIsLoading, username, setUsername, setPermission)){
         navigate('/login');
       }
     }

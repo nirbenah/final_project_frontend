@@ -8,13 +8,13 @@ export interface UserInfo {
     permission: string;
 }
 
-export const handleGetUserInfo = async (setIsLoading: any, setUsername: any, setPermission:any, setNextEvent: any) => {
+export const handleGetUserInfo = async (setIsLoading: any, username:string, setUsername: any, setPermission:any, setNextEvent: any) => {
     setIsLoading(true);
     const authApiRes = await AuthApi.getUserInfo();
     setIsLoading(false);
     if (authApiRes.status === APIStatus.Success) {
         const userInfo = authApiRes.data as UserInfo;
-        if (userInfo.permission !== 'U') {
+        if (userInfo.permission !== 'U' || (username!=="" && username !== userInfo.username)) {
             return false;
         }
         setUsername(userInfo.username);
@@ -39,13 +39,13 @@ export const handleGetUserInfo = async (setIsLoading: any, setUsername: any, set
     return true;
 };
 
-export const handleGetWorkerInfo = async (setIsLoading: any, setUsername: any, setPermission: any) => {
+export const handleGetWorkerInfo = async (setIsLoading: any, username:string, setUsername: any, setPermission: any) => {
     setIsLoading(true);
     const res = await AuthApi.getUserInfo();
     setIsLoading(false);
     if (res.status === APIStatus.Success) {
         const userInfo = res.data as UserInfo;
-        if (userInfo.permission === 'U') {
+        if (userInfo.permission === 'U' || (username!=="" && username !== userInfo.username)) {
             return false;
         }
         setUsername(userInfo.username);
