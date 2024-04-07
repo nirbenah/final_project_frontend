@@ -24,7 +24,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event }) => {
       }
       else{
         const day = (getDayOfWeek(new Date(event.start_date)));
-        setDate(`${day}, ${getDate(event.start_date)}, ${getTime(event.start_date)}`);
+        setDate(`${day}, ${getDate(event.start_date)}, ${getTime(event.start_date)} - ${getTime(event.end_date)}`);
       }
 
     }

@@ -54,6 +54,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ event }) => {
 
 const UserSpacePage: React.FC = () => {
   const [Loading, setLoading] = useState(false);
+  const [isLoadingUser, setIsLoadingUser] = useState(false);
   const [LoadingModal, setLoadingModal] = useState(false);
   const [ordersList, setOrdersList] = useState<Order[]>([]);
   const [event, setEvent] = useState<Event>();
@@ -124,9 +125,9 @@ const UserSpacePage: React.FC = () => {
   return (
     <>
       <div className="user-page-container" style={{ minHeight: '100vh' }}>
-        <NavBar isUser={true} setIsLoading={setLoading} rightComponent={<NavButtonsUser pageName={"userSpace"} />} />
+        <NavBar isUser={true} setIsLoading={setIsLoadingUser} rightComponent={<NavButtonsUser pageName={"userSpace"} />} />
         <h1>User Space - {username}</h1>
-        {Loading ? <Loader /> :
+        {(Loading || isLoadingUser) ? <Loader /> :
         errMsg ? <p className="error-msg">{errMsg}</p> :
           ordersList && ordersList.length !== 0 ? (
             <>

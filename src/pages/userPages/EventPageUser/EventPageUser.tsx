@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const EventPageUser: React.FC = () => {
+  const [isLoadingUser, setIsLoadingUser] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [event, setEvent] = useState<Event>();
   const [eventId, setEventId] = useState<string>(useParams().eventTitle as string);
@@ -85,8 +86,8 @@ const EventPageUser: React.FC = () => {
   return (
     <>
       <div className="event-page-container" style={{ minHeight: '100vh' }}>
-        <NavBar isUser={true} setIsLoading={setIsLoading} rightComponent={<NavButtonsUser pageName={"catalog"} />} />
-        {isLoading ? <Loader /> : null}
+        <NavBar isUser={true} setIsLoading={setIsLoadingUser} rightComponent={<NavButtonsUser pageName={"catalog"} />} />
+        {(isLoading || isLoadingUser) ? <Loader /> : null}
         {errMsg ? <p style={{justifyContent:"center",display:"flex",flexDirection:"column"}} className="error-msg">{errMsg}</p> : null}
         {event &&
           <>
