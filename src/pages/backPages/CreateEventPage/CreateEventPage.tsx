@@ -30,9 +30,8 @@ const CreateEventPage: React.FC = () => {
   const [event, setEvent] = useState<Event>(clearEvent);
   const [isLoading, setIsLoading] = useState(false);
   const [errMsg, setErrMsg] = useState('');
-  const { username, permission } = React.useContext(LoginContext);
+  const { permission, isLoadingUser } = React.useContext(LoginContext);
   const navigate = useNavigate();
-
 
   const handleAddTicket = (ticket: Ticket) => {
     setEvent(prevEvent => ({
@@ -59,9 +58,9 @@ const CreateEventPage: React.FC = () => {
   const handleCreateEvent = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    const res = await Api.postEvent({event});
-    setIsLoading(false); 
-    if(res.status === APIStatus.Success) {
+    const res = await Api.postEvent({ event });
+    setIsLoading(false);
+    if (res.status === APIStatus.Success) {
       console.log('Event created successfully');
       alert('Event created successfully');
       navigate(0)
@@ -75,28 +74,32 @@ const CreateEventPage: React.FC = () => {
 
   return (
     <>
-      {isLoading ? <Loader /> : null}
       <div className="create-new-event-container">
-        <NavBar isUser={false} setIsLoading={setIsLoading} rightComponent={<NavButtonsBack permissionLevel={permission} pageName='addEvent'/>} />
-        <h1 className='create-event-header'>Create New Event</h1>
-        <div className="event-form-container">
-          <AddEventForm onSubmit={handleCreateEvent} onchange={handleInputChange} />
-        </div>
-        <div className="add-tickets-container">
-          <h3 className="headers">Add Tickets:</h3>
-          <div className="ticket-display">
-            {event.tickets.map((ticket, index) => (
-              <div className="ticket" key={index}>
-                <p>Ticket Type: {ticket.name}</p>
-                <p>Quantity: {ticket.quantity}</p>
-                <p>Price: {ticket.price}</p>
-                <button className="blue-buttons" onClick={() => handleDeleteTicket(index)}>Delete</button>
+        <NavBar isUser={false} pageName='create-event' rightComponent={<NavButtonsBack permissionLevel={permission} pageName='create-event' />} />
+        {isLoading || isLoadingUser ? <Loader /> :
+          <>
+            <h1 className='create-event-header'>Create New Event</h1>
+            <div className="event-form-container">
+              <AddEventForm onSubmit={handleCreateEvent} onchange={handleInputChange} />
+            </div>
+            <div className="add-tickets-container">
+              <h3 className="headers">Add Tickets:</h3>
+              <div className="ticket-display">
+                {event.tickets.map((ticket, index) => (
+                  <div className="ticket" key={index}>
+                    <p>Ticket Type: {ticket.name}</p>
+                    <p>Quantity: {ticket.quantity}</p>
+                    <p>Price: {ticket.price}</p>
+                    <button className="blue-buttons" onClick={() => handleDeleteTicket(index)}>Delete</button>
+                  </div>
+                ))}
+                <AddTicket onSubmit={handleAddTicket} />
               </div>
-            ))}
-            <AddTicket onSubmit={handleAddTicket} />
-          </div>
-        </div>
-        <button className="orange-buttons" id="submit-button" form="event-form" type="submit">Submit Event</button>
+            </div>
+            <button className="orange-buttons" id="submit-button" form="event-form" type="submit">Submit Event</button>
+
+          </>
+        }
       </div>
       <ErrorPopup open={errMsg !== ''} setErrorMessage={setErrMsg} errorMessage={errMsg} />
     </>

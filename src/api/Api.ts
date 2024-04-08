@@ -142,7 +142,7 @@ export const Api = {
     },
     getNextEvent: async (username: string): Promise<APIResponse> => {
         try {
-            console.log('username:', username);
+            console.log('username to get next event:', username);
             const res = await axios.get(`${API_GATEWAY_URL}/api/nextEvent/${username}`, { withCredentials: true });
             return { status: APIStatus.Success, data: res.data };
         } catch (e) {

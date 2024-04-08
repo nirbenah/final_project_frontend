@@ -12,7 +12,7 @@ const NavButtonsUser: React.FC<NavButtonsUserProps> = ({ pageName }) => {
     return (
         <>
             {
-                nextEvent !== "" ?
+                nextEvent && nextEvent !== "" ?
                     <div className='nav-buttons' >{nextEvent}</div>:
                     <div className='nav-buttons'>No upcoming events</div>
             }       

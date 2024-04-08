@@ -47,6 +47,7 @@ const NavButtonsBack: React.FC<NavButtonsBackProps> = ({ permissionLevel, handle
 
     switch (permissionLevel) {
         case "A":
+            console.log("Admin");
             if (handleEditDateClick === undefined) {
                 buttons = (
                     <>

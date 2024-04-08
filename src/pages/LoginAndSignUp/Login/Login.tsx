@@ -41,6 +41,7 @@ export const Login: React.FC = () => {
         const res = await AuthApi.login({ username, password });
         setIsLoading(false);
         if(res.status === APIStatus.Success) {
+            console.log(res.data);
             if (res.data === "U") {
                 navigate('/main_user');
                 return;

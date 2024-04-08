@@ -3,12 +3,12 @@ import "./Checkout.css";
 import NavBar from '../../../components/NavBar/NavBar';
 import NavButtonsUser from '../../../components/NavButtonsUser/NavButtonsUser';
 import CheckoutTimer from '../../../components/CheckoutTimer/CheckoutTimer';
-import CheckoutLeaveDialog from '../../../components/CheckoutLeaveDialog/checkoutLeaveDialog';
 import Loader from '../../../components/Loader/Loader';
 import CheckoutForm from '../../../components/CheckoutForm/CheckoutForm';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { APIStatus, Api } from '../../../api/Api';
 import { paymentPayload } from '../../../types';
+import { LoginContext } from '../../../LoginContext';
 
 export const Checkout: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,6 +17,7 @@ export const Checkout: React.FC = () => {
   const navigator = useNavigate();
   const location = useLocation();
   const state = location.state as any;
+  const { isLoadingUser } = React.useContext(LoginContext);
 
   const orderId = state?.orderId;
   const eventId = state?.eventId;
@@ -26,8 +27,8 @@ export const Checkout: React.FC = () => {
   const pricePerTicket = state?.price;
 
   useEffect(() => {
-    if (!state || !orderId || !eventId || !eventTitle || !ticketType || !quantity ) {
-      console.log('Missing state data',state);
+    if (!state || !orderId || !eventId || !eventTitle || !ticketType || !quantity) {
+      console.log('Missing state data', state);
       alert('Error');
     }
     setSecondsRemaining(localStorage.getItem('timeLeft') ? parseInt(localStorage.getItem('timeLeft') as string) : 120);
@@ -82,39 +83,33 @@ export const Checkout: React.FC = () => {
     return true;
   };
 
-  // const handleCloseDialog = () => {
-  //   setOpenDialog(false);
-  // };
-
-  // const handleLeavePage = () => {
-  //   navigator(-1);
-  // };
 
   return (
     <>
-      <NavBar setIsLoading={setIsLoading} isUser={true} rightComponent={<NavButtonsUser pageName={"checkout"} />} />
-      {isLoading ? <Loader /> :
-        <div className="checkout-page-container" style={{ minHeight: "100vh" }}>
-          <h1>Checkout</h1>
-          <div className="checkout-container">
-            <CheckoutForm handlePayment={handlePayment} />
-            <div className='order-summery-and-timeout'>
-              <div className="order-summary">
-                <h3>Order Summary</h3>
-                {eventId &&
-                  <>
-                    <p><b>{quantity} x {eventTitle}</b></p>
-                    <p> {ticketType} tickets ({pricePerTicket}$) </p>
-                    <p>Total Price: {pricePerTicket * quantity}$</p>
-                  </>
-                }
+      <div className="checkout-page-container" style={{ minHeight: "100vh" }}>
+        <NavBar isUser={true} rightComponent={<NavButtonsUser pageName={"checkout"} />} />
+        {isLoading || isLoadingUser ? <Loader /> :
+          <>
+            <h1>Checkout</h1>
+            <div className="checkout-container">
+              <CheckoutForm handlePayment={handlePayment} />
+              <div className='order-summery-and-timeout'>
+                <div className="order-summary">
+                  <h3>Order Summary</h3>
+                  {eventId &&
+                    <>
+                      <p><b>{quantity} x {eventTitle}</b></p>
+                      <p> {ticketType} tickets ({pricePerTicket}$) </p>
+                      <p>Total Price: {pricePerTicket * quantity}$</p>
+                    </>
+                  }
+                </div>
+                <div className='timeout'><CheckoutTimer secondsRemaining={secondsRemaining} setSecondsRemaining={setSecondsRemaining} onTimeout={handleTimeout} /></div>
               </div>
-              <div className='timeout'><CheckoutTimer secondsRemaining={secondsRemaining} setSecondsRemaining={setSecondsRemaining} onTimeout={handleTimeout} /></div>
             </div>
-          </div>
-        </div>
-      }
-      {/* <CheckoutLeaveDialog handleCloseDialog={handleCloseDialog} handleLeavePage={handleLeavePage} openDialog={openDialog} /> */}
+          </>
+        }
+      </div>
     </>
   );
 };

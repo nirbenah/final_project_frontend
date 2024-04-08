@@ -35,36 +35,34 @@ const OrderItem: React.FC<OrderItemProps> = ({ event }) => {
   return (
     <>
       <div className="modal-event-container">
-          <>
-            <h3>{event?.title}</h3>
-            <img src={event?.image} alt="Event" className="modal-event-img" />
-            <div className="modal-event-details">
-              <p>Category: {event?.category}</p>
-              <p><img src={locationImg} alt="Location" className="modal-event-icon" /> {event?.location}</p>
-              <p><img src={dateImg} alt="Date" className="modal-event-icon" /> {event && getDate(event.start_date)} At {event && getTime(event.start_date)}</p>
-              <p>Organized by {event?.organizer}</p>
-              <p>{event?.description}</p>
-            </div>
-          </>
-        
+        <>
+          <h3>{event?.title}</h3>
+          <img src={event?.image} alt="Event" className="modal-event-img" />
+          <div className="modal-event-details">
+            <p>Category: {event?.category}</p>
+            <p><img src={locationImg} alt="Location" className="modal-event-icon" /> {event?.location}</p>
+            <p><img src={dateImg} alt="Date" className="modal-event-icon" /> {event && getDate(event.start_date)} At {event && getTime(event.start_date)}</p>
+            <p>Organized by {event?.organizer}</p>
+            <p>{event?.description}</p>
+          </div>
+        </>
+
       </div>
     </>
   );
 };
 
 const UserSpacePage: React.FC = () => {
+  const itemsPerPage = 5;
   const [Loading, setLoading] = useState(false);
-  const [isLoadingUser, setIsLoadingUser] = useState(false);
   const [LoadingModal, setLoadingModal] = useState(false);
   const [ordersList, setOrdersList] = useState<Order[]>([]);
   const [event, setEvent] = useState<Event>();
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
-  const [open, setOpen] = React.useState<boolean[]>([]);
+  const [open, setOpen] = React.useState<boolean[]>(Array.from({ length: itemsPerPage }, () => false));
   const [errMsg, setErrMsg] = useState('');
-  const { username } = React.useContext(LoginContext);
-
-  const itemsPerPage = 5;
+  const { username, isLoadingUser } = React.useContext(LoginContext);
 
   async function getOrders(pageNumber: number) {
     console.log("fetching orders for username:", username);
@@ -79,7 +77,6 @@ const UserSpacePage: React.FC = () => {
     console.log("fetched orders:", fetched_orders.data);
     setOrdersList(fetched_orders.data.orders);
     setPageCount(Math.ceil(fetched_orders.data.total / itemsPerPage));
-    setOpen(ordersList.map(() => false))
   }
   useEffect(() => {
     if (username) {
@@ -125,49 +122,49 @@ const UserSpacePage: React.FC = () => {
   return (
     <>
       <div className="user-page-container" style={{ minHeight: '100vh' }}>
-        <NavBar isUser={true} setIsLoading={setIsLoadingUser} rightComponent={<NavButtonsUser pageName={"userSpace"} />} />
+        <NavBar isUser={true} rightComponent={<NavButtonsUser pageName={"userSpace"} />} />
         <h1>User Space - {username}</h1>
         {(Loading || isLoadingUser) ? <Loader /> :
-        errMsg ? <p className="error-msg">{errMsg}</p> :
-          ordersList && ordersList.length !== 0 ? (
-            <>
-              <h2>Order History</h2>
-              <div className="order-history">
-                {ordersList.map((order, index) => (
-                  <div key={index} className="purchase">
-                    <div className="purchase-details">
-                      <div className="purchase-event-details">
-                        <p><b>Order no. {order._id}</b></p>
-                        <p>{order.eventTitle}</p>
-                        <p>Starts at {getDate(order.eventStartDate)} At {getTime(order.eventStartDate)}</p>
-                        <Button style={{ textTransform: 'none' }} onClick={() => handleOpenModal(index)}>Show Event information</Button>
+          errMsg ? <p className="error-msg">{errMsg}</p> :
+            ordersList && ordersList.length !== 0 ? (
+              <>
+                <h2>Order History</h2>
+                <div className="order-history">
+                  {ordersList.map((order, index) => (
+                    <div key={index} className="purchase">
+                      <div className="purchase-details">
+                        <div className="purchase-event-details">
+                          <p><b>Order no. {order._id}</b></p>
+                          <p>{order.eventTitle}</p>
+                          <p>Starts at {getDate(order.eventStartDate)} At {getTime(order.eventStartDate)}</p>
+                          <Button style={{ textTransform: 'none' }} onClick={() => handleOpenModal(index)}>Show Event information</Button>
+                        </div>
                       </div>
-                    </div>
-                    <div className="purchuse-ticket-details">
-                      <p>Quantity: {order.quantity}</p>
-                      <p>Ticket type: {order.ticketType}</p>
-                      <p>Price per ticket: {order.pricePerTicket} $</p>
-                      <p>Purchused on {getDate(order.orderDate)} At {getTime(order.orderDate)}</p>
-                    </div>
+                      <div className="purchuse-ticket-details">
+                        <p>Quantity: {order.quantity}</p>
+                        <p>Ticket type: {order.ticketType}</p>
+                        <p>Price per ticket: {order.pricePerTicket} $</p>
+                        <p>Purchused on {getDate(order.orderDate)} At {getTime(order.orderDate)}</p>
+                      </div>
 
-                    <Modal
-                      open={open[index]}
-                      onClose={handleCloseModal}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                    >
-                      <Box sx={popupStyle}>
-                        {LoadingModal ? < CircularProgress /> : <OrderItem event={event} />}
-                      </Box>
+                       <Modal
+                        open={open[index]}
+                        onClose={handleCloseModal}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                      >
+                        <Box sx={popupStyle}>
+                          {LoadingModal ? < CircularProgress /> : <OrderItem event={event} />}
+                        </Box>
 
-                    </Modal>
-                  </div>
-                ))}
-              </div>  
-            </>) :
-            <div className="no-orders">
-              <h2>No orders found...</h2>
-            </div>
+                      </Modal>
+                    </div>
+                  ))}
+                </div>
+              </>) :
+              <div className="no-orders">
+                <h2>No orders found...</h2>
+              </div>
         }
         <Pagination pageCount={pageCount} onPageChange={handlePageChange} />
       </div>

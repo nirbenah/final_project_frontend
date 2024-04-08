@@ -12,37 +12,49 @@ import Loader from '../Loader/Loader';
 import { handleGetUserInfo, handleGetWorkerInfo } from '../../sessionManagment';
 import { LoginContext } from '../../LoginContext';
 import { useNavigate } from 'react-router-dom';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 interface NavBarProps {
   isUser: boolean;
   rightComponent: React.ReactNode;
-  setIsLoading: (isLoading: boolean) => void;
+  pageName?: string;
 }
 
-const NavBar: React.FC<NavBarProps> = ({ isUser, rightComponent, setIsLoading }) => {
+const NavBar: React.FC<NavBarProps> = ({ isUser, rightComponent, pageName }) => {
   const userImage = isUser ? userPic : workerPic;
   const [errMsg, setErrMsg] = React.useState<string>('');
-  const { username, permission, nextEvent, setUsername, setPermission, setNextEvent } = React.useContext(LoginContext);
+  const { username, permission, nextEvent, setUsername, setPermission, setNextEvent , setIsLoadingUser } = React.useContext(LoginContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const handlePermission = async () => {
     if (isUser) {
-      if(!handleGetUserInfo(setIsLoading, username, setUsername, setPermission, setNextEvent)){
-        navigate('/login');
+      const userRes = await handleGetUserInfo(setIsLoadingUser, username, setUsername, setPermission, setNextEvent);
+      if (userRes === false) {
+        alert('You do not have permission to access this page');
+        navigate('/main_user');
       }
     }
     else {
-      if(!handleGetWorkerInfo(setIsLoading, username, setUsername, setPermission)){
-        navigate('/login');
+      console.log("worker")
+      const workerRes = await handleGetWorkerInfo(setIsLoadingUser, username, setUsername, setPermission, pageName);
+      if (workerRes === false) {
+        alert('You do not have permission to access this page');
+        navigate('/main_back');
       }
     }
+  }
+
+  useEffect(() => {
+    handlePermission();
   }, []);
 
   const onLogout = async () => {
-    setIsLoading(true);
+    setIsLoadingUser(true);
     const res = await AuthApi.logout();
-    setIsLoading(false);
+    setIsLoadingUser(false);
     if (res.status === APIStatus.Success) {
+      setUsername('');
+      setPermission('');
       navigate('/login');
       return;
     }
@@ -74,11 +86,6 @@ const NavBar: React.FC<NavBarProps> = ({ isUser, rightComponent, setIsLoading })
                 <span className="navbar-brand">{username}</span>
               )}
             </div>
-          </div>
-          <div className="d-flex">
-          {/* { nextEvent !== "" ?
-                    <div >Next Event: {nextEvent}</div>:
-                    <div >No upcoming events</div>} */}
           </div>
           <div className="d-flex">
             {rightComponent}

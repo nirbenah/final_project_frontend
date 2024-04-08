@@ -17,7 +17,7 @@ const Pagination: React.FC<PaginationProps> = ({ pageCount, onPageChange}) => {
 
   // TODO: change primary color
   return (
-    <Stack spacing={2} justifyContent="center" alignItems="center" marginTop={2} marginBottom={2}>
+    <Stack spacing={2} justifyContent="center" alignItems="center" marginTop={2} paddingBottom={2}>
       <MUIPagination
         count={pageCount}
         page={currentPage}

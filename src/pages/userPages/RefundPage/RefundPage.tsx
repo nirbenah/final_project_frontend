@@ -11,6 +11,7 @@ const RefundPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [refundStatus, setRefundStatus] = useState('');
   const [messageClass, setMessageClass] = useState('');
+  const {isLoadingUser, setIsLoadingUser} = React.useContext(LoginContext);
 
   const handleRefund = async () => {
     setIsLoading(true);
@@ -37,7 +38,7 @@ const RefundPage: React.FC = () => {
   return (
     <>
       <div className="refund-container" style={{ minHeight: '100vh' }}>
-        <NavBar isUser={true} setIsLoading={setIsLoading} rightComponent={<NavButtonsUser pageName={"refund"} />} />
+        <NavBar isUser={true} rightComponent={<NavButtonsUser pageName={"refund"} />} />
         <div className="refund">
           <h1>Refund Request</h1>
           <p>Please insert the order ID of the item you would like to refund:</p>
@@ -56,20 +57,6 @@ const RefundPage: React.FC = () => {
           </button>
           {isLoading && <Loader />}
           {refundStatus !== '' && <p className={messageClass} style={{marginTop:"20px"}}>{refundStatus}</p>}
-          {/* {orderDetails && (
-            <div className='order-details'>
-              <h2>Order Details</h2>
-              <p>
-                Order ID: {orderDetails.orderId} <br />
-                Item: {orderDetails.item} <br />
-                Price: {orderDetails.price} <br />
-                Order Date: {orderDetails.date} <br />
-              </p>
-              <button onClick={handleRefund} className="orange-buttons" style={{ width: '150px' }}>
-                Refund Me!
-              </button>
-            </div>
-          )} */}
         </div>
       </div>
     </>

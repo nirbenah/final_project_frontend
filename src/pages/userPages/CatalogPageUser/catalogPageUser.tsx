@@ -7,14 +7,14 @@ import Loader from '../../../components/Loader/Loader';
 
 
 export const CatalogPageUser: React.FC = () => {
-  const { username } = React.useContext(LoginContext);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [isLoadingUser, setIsLoadingUser] = React.useState(false);
+  const { isLoadingUser } = React.useContext(LoginContext);
+
 
   return (
     <>
       <div style={{minHeight:"100vh"}}>
-        <NavBar isUser={true} setIsLoading={setIsLoadingUser} rightComponent={<NavButtonsUser pageName={"catalog"} />} />
+        <NavBar isUser={true}  rightComponent={<NavButtonsUser pageName={"catalog"} />} />
         {isLoadingUser ? <Loader/> : 
         <CatalogPage isLoading={isLoading} setIsLoading={setIsLoading} isUser={true}/>}
       </div>

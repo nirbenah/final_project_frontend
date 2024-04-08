@@ -23,7 +23,7 @@ const UpdatePrivilegesDialog: React.FC<UpdatePrivilegesDialogProps> = ({ open, o
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Add User</DialogTitle>
+      <DialogTitle>Update User Privileges</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus
