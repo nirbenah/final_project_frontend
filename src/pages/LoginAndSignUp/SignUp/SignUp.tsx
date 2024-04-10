@@ -111,7 +111,7 @@ export const SignUp: React.FC = () => {
                                     4 to 24 characters.<br />
                                     Must begin with a letter.<br />
                                     Letters, numbers, underscores, hyphens allowed.<br />
-                                    Maccabi Tel aviv is not allowed as a username
+                                    Maccabi Tel aviv is not allowed as a username <br />
                                     Maccabi_Haifa is a recommended username
                                 </>
                             ) : null}
