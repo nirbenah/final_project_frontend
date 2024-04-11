@@ -42,7 +42,7 @@ const EventPage: React.FC = () => {
   }, []);
 
   const handleUpdateDates = async (startDate: string, endDate: string) => {
-    const fetched_event = await Api.UpdateDates(eventId, startDate, endDate);
+    const fetched_event = await Api.UpdateDates(eventId, new Date(startDate), new Date(endDate));
     if (fetched_event.status !== APIStatus.Success) {
       alert(fetched_event.data.error)
     }
@@ -53,6 +53,10 @@ const EventPage: React.FC = () => {
   };
 
   const handleOpenPopup = () => {
+    if(event && new Date(event.start_date) < new Date()){
+      alert("Cannot edit dates for past events");
+      return;
+    }
     setPopupOpen(true);
   };
 

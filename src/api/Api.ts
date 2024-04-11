@@ -83,7 +83,7 @@ export const Api = {
             return handleError(e);
         }
     },
-    UpdateDates: async (eventId: string, start_date: string, end_date: string): Promise<APIResponse> => {
+    UpdateDates: async (eventId: string, start_date: Date, end_date: Date): Promise<APIResponse> => {
         try {
             // '/api/event/:id/dates'
             const res = await axios.put(`${API_GATEWAY_URL}/api/event/${eventId}/dates`, { start_date, end_date }, { withCredentials: true });

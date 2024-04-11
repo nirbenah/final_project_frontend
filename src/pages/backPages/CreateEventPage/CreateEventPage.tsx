@@ -49,10 +49,18 @@ const CreateEventPage: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent) => {
     const { name, value } = e.target;
-    setEvent(prevEvent => ({
-      ...prevEvent,
-      [name]: value
-    }));
+    if(name === "start_date" || name === "end_date"){
+      setEvent(prevEvent => ({
+        ...prevEvent,
+        [name]: new Date(value)
+      }));
+    }
+    else{
+      setEvent(prevEvent => ({
+        ...prevEvent,
+        [name]: value
+      }));
+    }
   };
 
   const handleCreateEvent = async (e: React.FormEvent<HTMLFormElement>) => {

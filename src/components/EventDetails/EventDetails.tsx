@@ -20,7 +20,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event }) => {
       const durationMs = Math.abs(endDate.getTime() - startDate.getTime());
       const durationDays = Math.floor(durationMs / (1000 * 60 * 60 * 24));
       if(durationDays >= 1){
-        setDate(`${getDate(event.start_date)} - ${getDate(event.end_date)}`);
+        setDate(`${getDate(event.start_date)} - ${getDate(event.end_date)} | starts at ${getTime(event.start_date)} | ends at ${getTime(event.end_date)}`);
       }
       else{
         const day = (getDayOfWeek(new Date(event.start_date)));
@@ -51,6 +51,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event }) => {
               <h3>{event.title}</h3>
                 <p><b>{date}</b></p>
                 <p><b>At {event.location}</b></p>
+                <p><b>Organized by {event.organizer}</b></p>
                 {event.tickets_available === 0 ? 
                 <p><b>SOLD OUT</b></p>:
                 <p><b>{event.tickets_available} tickets Available, starting from {event.min_price}$ </b></p>}

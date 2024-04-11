@@ -23,6 +23,10 @@ const EditDatesPopup: React.FC<EditDatesPopupProps> = ({ isOpen, onClose, onUpda
             alert("End date must be after start date");
             return;
         }
+        else if(new Date(startDate) < new Date()){
+            alert("Start date must be in the future");
+            return;
+        }
         else{
             onUpdate(startDate, endDate);
         }
