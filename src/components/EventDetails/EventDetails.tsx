@@ -51,7 +51,9 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event }) => {
               <h3>{event.title}</h3>
                 <p><b>{date}</b></p>
                 <p><b>At {event.location}</b></p>
-                <p><b>{event.tickets_available} tickets Available, starting from {event.min_price}$ </b></p> 
+                {event.tickets_available === 0 ? 
+                <p><b>SOLD OUT</b></p>:
+                <p><b>{event.tickets_available} tickets Available, starting from {event.min_price}$ </b></p>}
                 <p>{event.description}</p> 
               </div>
             </div>
