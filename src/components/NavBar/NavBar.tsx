@@ -34,7 +34,7 @@ const NavBar: React.FC<NavBarProps> = ({ isUser, rightComponent, pageName }) => 
       userRes = await handleGetWorkerInfo(setIsLoadingUser, username, setUsername, setPermission, pageName);
     }
     if (userRes === LOGIN_STATUS.notLoggedIn) {
-      navigate('/login');
+      onLogout();
     }
     else if (userRes === LOGIN_STATUS.notPermitted) {
       alert('You do not have permission to access this page');

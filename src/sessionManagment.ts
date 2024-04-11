@@ -14,7 +14,13 @@ export enum LOGIN_STATUS {
     notLoggedIn
 }
 
-export const handleGetUserInfo = async (setIsLoading: any, username:string, setUsername: any, setPermission:any, setNextEvent: any) => {
+export enum LOGIN_PROFILE {
+    USER,
+    WORKER,
+    NONE
+}
+
+export const handleGetUserInfo = async (setIsLoading: any, username: string, setUsername: any, setPermission: any, setNextEvent: any) => {
     setIsLoading(true);
     const authApiRes = await AuthApi.getUserInfo();
     setIsLoading(false);
@@ -31,11 +37,11 @@ export const handleGetUserInfo = async (setIsLoading: any, username:string, setU
         if (apiRes.status === APIStatus.Success) {
             const nextEventTitle = apiRes.data.eventTitle;
             const nextEventDate = apiRes.data.eventStartDate;
-            if(nextEventTitle !== "" ) {
+            if (nextEventTitle !== "") {
                 const nextEventDescription = "Next event: " + nextEventTitle + " on " + getDate(nextEventDate) + " at " + getTime(nextEventDate);
                 setNextEvent(nextEventDescription);
             }
-            else{
+            else {
                 setNextEvent("");
             }
         }
@@ -47,7 +53,7 @@ export const handleGetUserInfo = async (setIsLoading: any, username:string, setU
     return LOGIN_STATUS.permitted;
 };
 
-export const handleGetWorkerInfo = async (setIsLoading: any, username:string, setUsername: any, setPermission: any, pageName?: string) => {
+export const handleGetWorkerInfo = async (setIsLoading: any, username: string, setUsername: any, setPermission: any, pageName?: string) => {
     setIsLoading(true);
     const res = await AuthApi.getUserInfo();
     setIsLoading(false);
@@ -59,7 +65,7 @@ export const handleGetWorkerInfo = async (setIsLoading: any, username:string, se
             console.log("worker does not have sufficient permissions:", userInfo);
             return LOGIN_STATUS.notPermitted;
         }
-        if (pageName && pageName === 'create-event' && userInfo.permission !== 'A' && userInfo.permission !== 'M' ) {
+        if (pageName && pageName === 'create-event' && userInfo.permission !== 'A' && userInfo.permission !== 'M') {
             console.log("only admin can create event", userInfo);
             return LOGIN_STATUS.notPermitted;
         }
@@ -69,5 +75,22 @@ export const handleGetWorkerInfo = async (setIsLoading: any, username:string, se
         return LOGIN_STATUS.notLoggedIn;
     }
     return LOGIN_STATUS.permitted;
+};
+
+export const handleLogin = async (setIsLoading: any) => {
+    setIsLoading(true);
+    const res = await AuthApi.getUserInfo();
+    setIsLoading(false);
+    if (res.status === APIStatus.Success) {
+        console.log("Cookie found - logging user");
+        const userInfo = res.data as UserInfo;
+        if (userInfo.permission === 'U') {
+            return LOGIN_PROFILE.USER;
+        }
+        if(userInfo.permission === 'A' || userInfo.permission === 'M' || userInfo.permission === 'W') {
+            return LOGIN_PROFILE.WORKER;
+        }
+    }
+    return LOGIN_PROFILE.NONE;
 };
 

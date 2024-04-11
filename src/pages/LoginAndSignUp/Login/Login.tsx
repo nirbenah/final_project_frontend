@@ -6,6 +6,7 @@ import { AuthApi } from '../../../api/authApi';
 import { APIStatus } from '../../../api/Api';
 import { CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { handleLogin, LOGIN_PROFILE } from "../../../sessionManagment";
 
 const LoginErrorMessages = {
     required: 'Username and password are required',
@@ -24,10 +25,20 @@ export const Login: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        checkIfUserAlreadyLogged();
         if (userRef.current !== null) {
             userRef.current.focus();
         }
     }, [])
+
+    const checkIfUserAlreadyLogged = async () => {
+        const res = await handleLogin(setIsLoading);
+        if( res === LOGIN_PROFILE.USER) {
+            navigate('/main_user');
+        } else if(res === LOGIN_PROFILE.WORKER) {
+            navigate('/main_back');
+        }
+      }
 
     const handleSubmit = async (e: any) => {
         if (password.length === 0 || username.length === 0) {
