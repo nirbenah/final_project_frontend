@@ -87,9 +87,10 @@ const EventPageUser: React.FC = () => {
       } else {
         if(response.status === APIStatus.ServerError){
           alert("Server error - failed to proceed to checkout");
+        } else{
+          console.log("error creating order", response.data);
+          alert(`Bad request error`);
         }
-        console.log("error creating order", response.data);
-        alert(`Undefined error - failed to proceed to checkout`);
       }
     }
   }

@@ -1,7 +1,8 @@
 export function getTime(date: Date): string {
     const d = new Date(date);
-    let hours: number = d.getHours() % 12 || 12;
+    let hours: number = d.getHours();
     const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours =  hours % 12 || 12;
     const minutes: number = d.getMinutes();
 
     const formattedTime: string = `${hours == 0 ? '0' : ''}${hours}:${minutes <= 9 ? '0' : ''}${minutes} ${ampm}`;
