@@ -104,16 +104,17 @@ export const SignUp: React.FC = () => {
                             onChange={(e) => setUsername(e.target.value)}
                             value={username}
                             required
-                            // error={!validName}
-                            // helperText={userFocus && username && !validName ? (
-                            //     <>
-                            //         <FontAwesomeIcon icon={faInfoCircle} />
-                            //         4 to 24 characters.<br />
-                            //         Must begin with a letter.<br />
-                            //         Letters, numbers, underscores, hyphens allowed.<br />
-                            //         Maccabi Tel aviv is not allowed as a username
-                            //     </>
-                            // ) : null}
+                            error={!validName}
+                            helperText={userFocus && username && !validName ? (
+                                <>
+                                    <FontAwesomeIcon icon={faInfoCircle} />
+                                    4 to 24 characters.<br />
+                                    Must begin with a letter.<br />
+                                    Letters, numbers, underscores, hyphens allowed.<br />
+                                    Maccabi Tel aviv is not allowed as a username <br />
+                                    Maccabi_Haifa is a recommended username
+                                </>
+                            ) : null}
                             onFocus={() => setUserFocus(true)}
                             onBlur={() => setUserFocus(false)}
                             style={{ width: "100%" }}
@@ -132,15 +133,15 @@ export const SignUp: React.FC = () => {
                             onChange={(e) => setPwd(e.target.value)}
                             value={pwd}
                             required
-                            // error={!validPwd}
-                            // helperText={pwdFocus && !validPwd ? (
-                            //     <>
-                            //         <FontAwesomeIcon icon={faInfoCircle} />
-                            //         8 to 24 characters.<br />
-                            //         Must include uppercase and lowercase letters, a number and a special character.<br />
-                            //         Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
-                            //     </>
-                            // ) : null}
+                            error={!validPwd}
+                            helperText={pwdFocus && !validPwd ? (
+                                <>
+                                    <FontAwesomeIcon icon={faInfoCircle} />
+                                    8 to 24 characters.<br />
+                                    Must include uppercase and lowercase letters, a number and a special character.<br />
+                                    Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                                </>
+                            ) : null}
                             onFocus={() => setPwdFocus(true)}
                             onBlur={() => setPwdFocus(false)}
                             style={{ width: "100%" }}
@@ -159,13 +160,13 @@ export const SignUp: React.FC = () => {
                             onChange={(e) => setMatchPwd(e.target.value)}
                             value={matchPwd}
                             required
-                            // error={!validMatch}
-                            // helperText={matchFocus && !validMatch ? (
-                            //     <>
-                            //         <FontAwesomeIcon icon={faInfoCircle} />
-                            //         Passwords do not match.
-                            //     </>
-                            // ) : null}
+                            error={!validMatch}
+                            helperText={matchFocus && !validMatch ? (
+                                <>
+                                    <FontAwesomeIcon icon={faInfoCircle} />
+                                    Passwords do not match.
+                                </>
+                            ) : null}
                             onFocus={() => setMatchFocus(true)}
                             onBlur={() => setMatchFocus(false)}
                             style={{ width: "100%" }}
@@ -173,8 +174,8 @@ export const SignUp: React.FC = () => {
                     </div>
                 </form>
                 {errMsg && <p className='error-msg'>{errMsg}</p>}
-                {/* {isLoading ? <CircularProgress /> :<button className="blue-buttons" form='signup-form' disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>} */}
-                {isLoading ? <CircularProgress /> :<button className="blue-buttons" form='signup-form'>Sign Up</button>}
+                {isLoading ? <CircularProgress /> :<button className="blue-buttons" form='signup-form' disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>}
+                {/* {isLoading ? <CircularProgress /> :<button className="blue-buttons" form='signup-form'>Sign Up</button>} */}
                 <p className="sign-bottom-message">
                     Already registered?{' '} <Link to="/login">Sign In</Link>
                 </p>

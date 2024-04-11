@@ -118,7 +118,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ onSubmit, onchange }) => {
                 <TextField
                     label="Image"
                     name="image"
-                    type="file"
+                    type="text"
                     onChange={onchange}
                     variant="standard"
                     style={{ width: '100%' }}
