@@ -1,6 +1,6 @@
 
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import "./SuccessPage.css";
 import NavBar from '../../../components/NavBar/NavBar';
@@ -24,17 +24,20 @@ export const SuccessPage: React.FC = () => {
     navigate('/main_user');
   };
 
-  console.log(state);
-  if (!state || !orderId || !eventTitle || !ticketType || !quantity || !pricePerTicket) {
-    alert('Error');
-    handleBackToCatalog();
-  }
+  useEffect(() => {
+    if (!state || !orderId || !eventTitle || !ticketType || !quantity || !pricePerTicket) {
+      alert('Error');
+      handleBackToCatalog();
+    }
+  }, []);
+
 
   return (
     <>
       <div className="success-page-container" style={{ minHeight: "100vh" }}>
         <NavBar isUser={true} rightComponent={<NavButtonsUser pageName={"success"} />} />
         {isLoadingUser ? <Loader /> :
+        state && orderId && eventTitle && ticketType && quantity && pricePerTicket &&
           <>
             <div className="success-message">
               <h2>Congratulations! Enjoy!</h2>

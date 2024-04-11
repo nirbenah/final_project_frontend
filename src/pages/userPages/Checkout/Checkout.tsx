@@ -30,8 +30,8 @@ export const Checkout: React.FC = () => {
 
   useEffect(() => {
     if (!state || !orderId || !eventId || !eventTitle || !ticketType || !quantity || !timeoutDate) {
-      console.log('Missing state data', state);
       alert('Error');
+      navigator('/main_user');
     }
     setSecondsRemaining(getPositiveTimeDifferenceInSeconds(new Date(timeoutDate)));
   }, []);
