@@ -10,18 +10,19 @@ interface CheckoutTimerProps {
 }
 
 const CheckoutTimer: React.FC<CheckoutTimerProps> = ({ onTimeout, secondsRemaining, setSecondsRemaining, timeoutDate }) => {
-
+  const [timedOut, setTimedOut] = useState<Boolean>(false);
   useEffect(() => {
     const timer = setTimeout(() => {
       if (secondsRemaining > 0) {
         setSecondsRemaining(getPositiveTimeDifferenceInSeconds(timeoutDate));
-      } else {
+      } else if(!timedOut){
+        setTimedOut(true);
         onTimeout(); // Call the onTimeout callback when timeout occurs
       }
     }, 1000); // Update every second
 
     return () => clearTimeout(timer);
-  }, [secondsRemaining, onTimeout]);
+  }, [secondsRemaining, onTimeout, timedOut]);
 
   const formatTime = (timeInSeconds: number) => {
     const minutes = Math.floor(timeInSeconds / 60);

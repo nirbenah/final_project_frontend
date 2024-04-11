@@ -8,7 +8,7 @@ import { AuthApi } from '../../../api/authApi';
 import { APIStatus } from '../../../api/Api';
 import { CircularProgress } from "@mui/material";
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+const USER_REGEX = /^[A-z][A-z0-9-_]{2,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,24}$/;
 
 const SignUpErrorMessages = {
@@ -108,7 +108,7 @@ export const SignUp: React.FC = () => {
                             helperText={userFocus && username && !validName ? (
                                 <>
                                     <FontAwesomeIcon icon={faInfoCircle} />
-                                    4 to 24 characters.<br />
+                                    3 to 24 characters.<br />
                                     Must begin with a letter.<br />
                                     Letters, numbers, underscores, hyphens allowed.<br />
                                     Maccabi Tel aviv is not allowed as a username <br />
@@ -139,7 +139,6 @@ export const SignUp: React.FC = () => {
                                     <FontAwesomeIcon icon={faInfoCircle} />
                                     8 to 24 characters.<br />
                                     Must include uppercase and lowercase letters, a number.<br />
-                                    Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
                                 </>
                             ) : null}
                             onFocus={() => setPwdFocus(true)}
