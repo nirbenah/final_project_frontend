@@ -22,25 +22,26 @@ interface NavBarProps {
 const NavBar: React.FC<NavBarProps> = ({ isUser, rightComponent, pageName }) => {
   const userImage = isUser ? userPic : workerPic;
   const [errMsg, setErrMsg] = React.useState<string>('');
-  const { username, permission, nextEvent, setUsername, setPermission, setNextEvent , setIsLoadingUser } = React.useContext(LoginContext);
+  const { username, permission, nextEvent, setUsername, setPermission, setNextEvent, setIsLoadingUser } = React.useContext(LoginContext);
   const navigate = useNavigate();
 
   const handlePermission = async () => {
+    let userRes;
     if (isUser) {
-      const userRes = await handleGetUserInfo(setIsLoadingUser, username, setUsername, setPermission, setNextEvent);
-      if (userRes === LOGIN_STATUS.notLoggedIn) {
-        alert('You do not have permission to access this page');
-        navigate('/login');
-      }
-    }
-    else {
+      userRes = await handleGetUserInfo(setIsLoadingUser, username, setUsername, setPermission, setNextEvent);
+    } else {
       console.log("worker")
-      const workerRes = await handleGetWorkerInfo(setIsLoadingUser, username, setUsername, setPermission, pageName);
-      if (workerRes === LOGIN_STATUS.notLoggedIn) {
-        alert('You do not have permission to access this page');
-        navigate('/login');
-      } else if (workerRes === LOGIN_STATUS.notPermitted) {
-        alert('You do not have permission to access this page');
+      userRes = await handleGetWorkerInfo(setIsLoadingUser, username, setUsername, setPermission, pageName);
+    }
+    if (userRes === LOGIN_STATUS.notLoggedIn) {
+      alert('logging out...');
+      navigate('/login');
+    }
+    else if (userRes === LOGIN_STATUS.notPermitted) {
+      alert('You do not have permission to access this page');
+      if(permission === 'U'){
+        navigate('/main_user');
+      } else{
         navigate('/main_back');
       }
     }

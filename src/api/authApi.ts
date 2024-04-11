@@ -6,8 +6,8 @@ interface Credentials {
     password: string;
 }
 
-const API_GATEWAY_URL = "http://localhost:4000";
-// const API_GATEWAY_URL = "https://apigatewayandauth.onrender.com";
+// const API_GATEWAY_URL = "http://localhost:4000";
+const API_GATEWAY_URL = "https://apigatewayandauth.onrender.com";
 
 export const AuthApi = {
     login: async ({ username, password }: Credentials): Promise<APIResponse> => {

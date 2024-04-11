@@ -20,12 +20,12 @@ export const handleGetUserInfo = async (setIsLoading: any, username:string, setU
     setIsLoading(false);
     if (authApiRes.status === APIStatus.Success) {
         const userInfo = authApiRes.data as UserInfo;
-        if (userInfo.permission !== 'U' || (username !=="" && username !== userInfo.username)) {
-            console.log("user info", userInfo);
-            return LOGIN_STATUS.notLoggedIn;
-        }
         setUsername(userInfo.username);
         setPermission(userInfo.permission);
+        if (userInfo.permission !== 'U') {
+            console.log("user info", userInfo);
+            return LOGIN_STATUS.notPermitted;
+        }
         const apiRes = await Api.getNextEvent(userInfo.username);
         console.log('apiRes:', apiRes, "for user", userInfo.username);
         if (apiRes.status === APIStatus.Success) {
@@ -53,16 +53,16 @@ export const handleGetWorkerInfo = async (setIsLoading: any, username:string, se
     setIsLoading(false);
     if (res.status === APIStatus.Success) {
         const userInfo = res.data as UserInfo;
-        if (userInfo.permission === 'U' || (username !=="" && username !== userInfo.username)) {
+        setUsername(userInfo.username);
+        setPermission(userInfo.permission);
+        if (userInfo.permission === 'U') {
             console.log("worker does not have sufficient permissions:", userInfo);
-            return LOGIN_STATUS.notLoggedIn;
+            return LOGIN_STATUS.notPermitted;
         }
         if (pageName && pageName === 'create-event' && userInfo.permission !== 'A' && userInfo.permission !== 'M' ) {
             console.log("only admin can create event", userInfo);
             return LOGIN_STATUS.notPermitted;
         }
-        setUsername(userInfo.username);
-        setPermission(userInfo.permission);
     }
     // cookies not found or not valid
     else {
