@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { AuthApi } from '../../../api/authApi';
 import { APIStatus } from '../../../api/Api';
 import { CircularProgress } from "@mui/material";
-import { LoginContext } from '../../../LoginContext';
 import { useNavigate } from "react-router-dom";
 
 const LoginErrorMessages = {
@@ -16,14 +15,12 @@ const LoginErrorMessages = {
 
 
 export const Login: React.FC = () => {
-    const userRef = useRef<HTMLInputElement>(null); // set the focus on the user input when the component loads
-    const errRef = useRef<HTMLInputElement>(null); // set the focus on the error
+    const userRef = useRef<HTMLInputElement>(null); 
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const appContext = useContext(LoginContext);
     const navigate = useNavigate();
 
     useEffect(() => {

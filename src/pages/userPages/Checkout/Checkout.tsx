@@ -78,13 +78,13 @@ export const Checkout: React.FC = () => {
     } else {
       if (purchaseResponse.status === APIStatus.BadRequest) {
         alert('Tickets are no longer available :(');
+        navigator('/main_user');
       }
       else if (purchaseResponse.status === APIStatus.ServerError) {
         alert('Payment failed due to server error, please try again later.');
       }
       else {
         alert('Undefined error - Payment failed please try again later.');
-
       }
     }
   };
