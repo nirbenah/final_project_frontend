@@ -21,14 +21,14 @@
     align-items: center;
     justify-content: center;
     padding: 10px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: border-color 0.3s;
     transition: background-color 0.3s;
 }
 
 .ticket:hover {
-    border: 2px solid #E79A26;
+    border: 1px solid #E79A26;
     background-color: #e79a2617;
 }
 

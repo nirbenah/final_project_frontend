@@ -84,12 +84,13 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ isUser, isLoading, set
                           (e.target as HTMLImageElement).src = defaultEventImg;
                         }} />
                         <div className="catalog-event-details">
-                          <h2>{event.title}</h2>
-                          <div>
-                            <p><strong>Date:</strong> {getDate(event.start_date)}</p>
-                            <p><strong>Type:</strong> {event.category}</p>
-                            <p><strong>Starting Price:</strong> {event.min_price}$</p>
-                            <p><strong>Tickets Available:</strong> {event.tickets_available}</p>
+                          <h2 >{event.title}</h2>
+                          <p style={{color:"grey"}}>{event.category} | {getDate(event.start_date)}</p>
+                          <div style={{paddingTop:"20px"}}>
+                            {event.tickets_available < 10 ?
+                            <p style={{color:"rgba(255, 0, 0, 0.678)"}}><strong>Only {event.tickets_available} Tickets available!</strong> </p>:
+                            <p><strong>{event.tickets_available} Tickets available</strong></p>}
+                            <p><strong>Starting from {event.min_price}$</strong></p>
                           </div>
                         </div>
                       </Link>

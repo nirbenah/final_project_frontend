@@ -9,6 +9,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { APIStatus, Api } from '../../../api/Api';
 import { paymentPayload } from '../../../types';
 import { LoginContext } from '../../../LoginContext';
+import { getPositiveTimeDifferenceInSeconds } from '../../../utils';
 
 export const Checkout: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,14 +26,14 @@ export const Checkout: React.FC = () => {
   const ticketType = state?.ticketType;
   const quantity = state?.quantity;
   const pricePerTicket = state?.price;
+  const timeoutDate = state?.timeoutDate;
 
   useEffect(() => {
-    if (!state || !orderId || !eventId || !eventTitle || !ticketType || !quantity) {
+    if (!state || !orderId || !eventId || !eventTitle || !ticketType || !quantity || !timeoutDate) {
       console.log('Missing state data', state);
       alert('Error');
     }
-    setSecondsRemaining(localStorage.getItem('timeLeft') ? parseInt(localStorage.getItem('timeLeft') as string) : 120);
-
+    setSecondsRemaining(getPositiveTimeDifferenceInSeconds(new Date(timeoutDate)));
   }, []);
 
   const handleTimeout = () => {
@@ -104,7 +105,7 @@ export const Checkout: React.FC = () => {
                     </>
                   }
                 </div>
-                <div className='timeout'><CheckoutTimer secondsRemaining={secondsRemaining} setSecondsRemaining={setSecondsRemaining} onTimeout={handleTimeout} /></div>
+                <div className='timeout'><CheckoutTimer secondsRemaining={secondsRemaining} setSecondsRemaining={setSecondsRemaining} onTimeout={handleTimeout} timeoutDate={new Date(timeoutDate)} /></div>
               </div>
             </div>
           </>

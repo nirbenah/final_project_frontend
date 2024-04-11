@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import clockImg from '../../assets/clock.png';
+import { getPositiveTimeDifferenceInSeconds } from '../../utils';
 
 interface CheckoutTimerProps {
   onTimeout: () => void;
   secondsRemaining: number;
   setSecondsRemaining: React.Dispatch<React.SetStateAction<number>>;
+  timeoutDate: Date;
 }
 
-const CheckoutTimer: React.FC<CheckoutTimerProps> = ({ onTimeout, secondsRemaining, setSecondsRemaining }) => {
+const CheckoutTimer: React.FC<CheckoutTimerProps> = ({ onTimeout, secondsRemaining, setSecondsRemaining, timeoutDate }) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
       if (secondsRemaining > 0) {
-        setSecondsRemaining(prevSeconds => prevSeconds - 1);
-        localStorage.setItem('timeLeft', (secondsRemaining-1).toString());
+        setSecondsRemaining(getPositiveTimeDifferenceInSeconds(timeoutDate));
       } else {
         onTimeout(); // Call the onTimeout callback when timeout occurs
       }

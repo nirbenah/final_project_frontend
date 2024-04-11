@@ -28,7 +28,12 @@ const EventPageUser: React.FC = () => {
       const fetched_event = await Api.getEvent({ eventId: eventId })
       setIsLoading(false);
       if (fetched_event.status === APIStatus.Success) {
-        setEvent(fetched_event.data)
+        if(fetched_event.data.tickets_available === 0 || fetched_event.data.start_date < new Date()) {
+          navigate('/main_user');
+        }
+        else{
+          setEvent(fetched_event.data)
+        }
       }
       else {
         console.log("error fetching event", fetched_event.data)
@@ -37,7 +42,7 @@ const EventPageUser: React.FC = () => {
     }
 
     if (!event) {
-      getEvent()
+      getEvent();
     }
   }, []);
 
@@ -63,7 +68,8 @@ const EventPageUser: React.FC = () => {
       setIsLoading(false);
       if (response.status === APIStatus.Success) {
         // Navigate to checkout page with state data
-        localStorage.setItem('timeLeft', (120).toString());
+        let timeoutDate = new Date(response.data.timeStamp);
+        timeoutDate.setMinutes(timeoutDate.getMinutes() + 2);
         navigate(
           '/checkout',
           {
@@ -74,6 +80,7 @@ const EventPageUser: React.FC = () => {
               ticketType: ticketType,
               quantity: quantity,
               price: price,
+              timeoutDate: timeoutDate
             },
           }
         );

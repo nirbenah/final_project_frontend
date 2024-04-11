@@ -30,11 +30,26 @@ export function formatDate(date: Date) {
     return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
 
-
-
 export function getDayOfWeek(date: Date): string {
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const dayIndex = date.getDay();
     return daysOfWeek[dayIndex];
-  }
-  
+}
+
+export function getPositiveTimeDifferenceInSeconds(timeoutDate: Date): number {
+    // Get the current date
+    const currentDate: Date = new Date();
+
+    // Calculate the difference in milliseconds
+    const timeDifference: number = timeoutDate.getTime() - currentDate.getTime();
+
+    // Check if the difference is positive
+    if (timeDifference > 0) {
+        // Convert milliseconds to seconds
+        const seconds: number = Math.floor(timeDifference / 1000);
+        return seconds;
+    } else {
+        // If the difference is negative or zero, return 0
+        return 0;
+    }
+}

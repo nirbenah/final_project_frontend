@@ -15,6 +15,7 @@ import { LoginContext } from '../../../LoginContext';
 import { Order, Event } from '../../../types';
 import { getTime, getDate } from '../../../utils'
 import { CircularProgress } from "@mui/material";
+import defaultEventImg from "../../../assets/default-event.png";
 
 const popupStyle = {
   position: 'absolute' as 'absolute',
@@ -37,7 +38,10 @@ const OrderItem: React.FC<OrderItemProps> = ({ event }) => {
       <div className="modal-event-container">
         <>
           <h3>{event?.title}</h3>
-          <img src={event?.image} alt="Event" className="modal-event-img" />
+          <img src={event?.image} alt="Event" className="modal-event-img" onError={(e) => {
+                    // If the image fails to load, set the source to the default image
+                    (e.target as HTMLImageElement).src = defaultEventImg;
+                  }}/>
           <div className="modal-event-details">
             <p>Category: {event?.category}</p>
             <p><img src={locationImg} alt="Location" className="modal-event-icon" /> {event?.location}</p>
@@ -143,7 +147,7 @@ const UserSpacePage: React.FC = () => {
                       <div className="purchuse-ticket-details">
                         <p>Quantity: {order.quantity}</p>
                         <p>Ticket type: {order.ticketType}</p>
-                        <p>Price per ticket: {order.pricePerTicket} $</p>
+                        <p>Price per ticket: {order.pricePerTicket}$</p>
                         <p>Purchused on {getDate(order.orderDate)} At {getTime(order.orderDate)}</p>
                       </div>
 

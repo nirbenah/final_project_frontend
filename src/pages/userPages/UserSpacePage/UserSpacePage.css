@@ -20,6 +20,10 @@
     padding: 20px;
     border-radius: 5px;
   }
+
+  .purchase:hover {
+    background-color: #ebebeb86;
+  }
   
   .purchase-details {
     display: flex;

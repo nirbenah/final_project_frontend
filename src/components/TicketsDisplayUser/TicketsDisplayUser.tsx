@@ -30,7 +30,9 @@ const TicketsDisplayUser: React.FC<TicketsDisplayUserProps> = ({ tickets, buyTic
                             <div className="ticket-info">
                                 <p><b>{ticket.name} ticket</b></p>
                                 <p>Price: {ticket.price}$</p>
-                                <p>{ticket.available} tickets left!</p>
+                                {ticket.available === 0 ? <p><b>SOLD OUT</b></p>:
+                                ticket.available < 10 ? <p style={{ color: "rgba(255, 0, 0, 0.678)" }}><b>{ticket.available} tickets left!</b></p> :
+                                <p>{ticket.available} tickets available</p>}
                             </div>
                             {ticket.available === 0 ? null :
                                 <>
