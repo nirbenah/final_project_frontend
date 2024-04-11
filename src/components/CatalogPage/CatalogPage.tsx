@@ -52,7 +52,6 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ isUser, isLoading, set
     setPage(pageNumber);
   };
 
-  // TODO: move current page state to here to solve the issue
   const handlePerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setEventsPerPage(parseInt(event.target.value));
     handlePageChange(1);

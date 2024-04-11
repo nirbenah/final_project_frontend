@@ -7,7 +7,7 @@ interface CheckoutFormProps {
     handlePayment: (cc: string, holder: string, cvv: number, exp: string) => void;
 }
 
-const CheckoutForm: React.FC<CheckoutFormProps> = ({handlePayment}) => {
+const CheckoutForm: React.FC<CheckoutFormProps> = ({ handlePayment }) => {
     const [formData, setFormData] = useState({
         name: '',
         cardNumber: '',
@@ -49,9 +49,10 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({handlePayment}) => {
     };
 
     const isFormValid = () => {
-        validateCheckoutInput('expiry', '');
-        return Object.values(errors).every(error => error === '') && errors.expiry === '';
+        const isDateValid = checkExpiryDate();
+        return Object.values(errors).every(error => error === '') && isDateValid;
     };
+
     const validateCheckoutInput = (name: string, value: string) => {
         switch (name) {
             case 'name':
@@ -81,23 +82,29 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({handlePayment}) => {
                     year: !isNaN(parseInt(value)) ? '' : 'Enter a valid year'
                 });
                 break;
-            case 'expiry':
-                const month_num = parseInt(formData.month, 10);
-                const year_num = parseInt(`20${formData.year}`, 10);
-                let is_expired = false;
-                if (!isNaN(month_num) && !isNaN(year_num)) {
-                    const today = new Date();
-                    const expiryDate = new Date(year_num, month_num - 1);
-                    is_expired = expiryDate < today;
-                }
-                setErrors({
-                    ...errors,
-                    expiry: is_expired ? 'The expiration date has passed' : ''
-                });
-                break;
             default:
                 break;
         }
+    };
+
+    const checkExpiryDate = () => {
+        setErrors({
+            ...errors,
+            expiry: ''
+        });
+        const month_num = parseInt(formData.month, 10);
+        const year_num = parseInt(`20${formData.year}`, 10);
+        let is_expired = false;
+        if (!isNaN(month_num) && !isNaN(year_num)) {
+            const today = new Date();
+            const expiryDate = new Date(year_num, month_num - 1);
+            is_expired = expiryDate < today;
+        }
+        setErrors({
+            ...errors,
+            expiry: is_expired ? 'The expiration date has passed' : ''
+        });
+        return !is_expired;
     };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -148,7 +155,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({handlePayment}) => {
                         value={formData.cvv}
                         onChange={handleChange}
                         onKeyDown={handleKeyDown}
-                        inputProps={{ maxLength: 3}}
+                        inputProps={{ maxLength: 3 }}
                         required
                         placeholder='123'
                         fullWidth
