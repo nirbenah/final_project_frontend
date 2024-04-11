@@ -1,7 +1,7 @@
 import React from 'react'
 import NavBar from '../../../components/NavBar/NavBar'
 import EventDetails from '../../../components/EventDetails/EventDetails'
-import TicketsDisplayUser from '../../../components/TicketsDisplayUser/TicketsDisplayUser'
+import TicketsDisplayUser from '../../../components/TicketDisplay/TicketsDisplayUser/TicketsDisplayUser'
 import Comments from '../../../components/Comments/Comments'
 import { Event, Comment } from '../../../types';
 import NavButtonsUser from '../../../components/NavButtonsUser/NavButtonsUser'
@@ -85,7 +85,10 @@ const EventPageUser: React.FC = () => {
           }
         );
       } else {
-        alert(`Failed to proceed to checkout - ${response.data.error}`);
+        if(response.status === APIStatus.ServerError){
+          alert("Server error - failed to proceed to checkout");
+        }
+        alert(`Undefined error - failed to proceed to checkout`);
       }
     }
   }

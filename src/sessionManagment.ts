@@ -8,6 +8,12 @@ export interface UserInfo {
     permission: string;
 }
 
+export enum LOGIN_STATUS {
+    permitted,
+    notPermitted,
+    notLoggedIn
+}
+
 export const handleGetUserInfo = async (setIsLoading: any, username:string, setUsername: any, setPermission:any, setNextEvent: any) => {
     setIsLoading(true);
     const authApiRes = await AuthApi.getUserInfo();
@@ -16,7 +22,7 @@ export const handleGetUserInfo = async (setIsLoading: any, username:string, setU
         const userInfo = authApiRes.data as UserInfo;
         if (userInfo.permission !== 'U' || (username !=="" && username !== userInfo.username)) {
             console.log("user info", userInfo);
-            return false;
+            return LOGIN_STATUS.notLoggedIn;
         }
         setUsername(userInfo.username);
         setPermission(userInfo.permission);
@@ -36,9 +42,9 @@ export const handleGetUserInfo = async (setIsLoading: any, username:string, setU
     }
     // cookies not found or not valid
     else {
-        return false;
+        return LOGIN_STATUS.notLoggedIn;
     }
-    return true;
+    return LOGIN_STATUS.permitted;
 };
 
 export const handleGetWorkerInfo = async (setIsLoading: any, username:string, setUsername: any, setPermission: any, pageName?: string) => {
@@ -49,19 +55,19 @@ export const handleGetWorkerInfo = async (setIsLoading: any, username:string, se
         const userInfo = res.data as UserInfo;
         if (userInfo.permission === 'U' || (username !=="" && username !== userInfo.username)) {
             console.log("worker does not have sufficient permissions:", userInfo);
-            return false;
+            return LOGIN_STATUS.notLoggedIn;
         }
-        if (pageName && pageName === 'create-event' && userInfo.permission !== 'A' ) {
+        if (pageName && pageName === 'create-event' && userInfo.permission !== 'A' && userInfo.permission !== 'M' ) {
             console.log("only admin can create event", userInfo);
-            return false;
+            return LOGIN_STATUS.notPermitted;
         }
         setUsername(userInfo.username);
         setPermission(userInfo.permission);
     }
     // cookies not found or not valid
     else {
-        return false;
+        return LOGIN_STATUS.notLoggedIn;
     }
-    return true;
+    return LOGIN_STATUS.permitted;
 };
 

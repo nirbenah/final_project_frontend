@@ -9,7 +9,7 @@ import { APIStatus } from '../../../api/Api';
 import { CircularProgress } from "@mui/material";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,24}$/;
 
 const SignUpErrorMessages = {
     required: 'Username and password are required',
@@ -138,7 +138,7 @@ export const SignUp: React.FC = () => {
                                 <>
                                     <FontAwesomeIcon icon={faInfoCircle} />
                                     8 to 24 characters.<br />
-                                    Must include uppercase and lowercase letters, a number and a special character.<br />
+                                    Must include uppercase and lowercase letters, a number.<br />
                                     Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
                                 </>
                             ) : null}

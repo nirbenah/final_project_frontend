@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import NavBar from '../../../components/NavBar/NavBar'
 import EventDetails from '../../../components/EventDetails/EventDetails'
-import TicketsDisplayBack from '../../../components/TicketsDisplayBack/TicketsDisplayBack'
+import TicketsDisplayBack from '../../../components/TicketDisplay/TicketsDisplayBack/TicketsDisplayBack'
 import { Event, Comment } from '../../../types';
 import NavButtonsBack from '../../../components/NavButtonsBack/NavButtonsBack'
 import EditDatesPopup from '../../../components/EditDatesPopup/EditDatesPopup'

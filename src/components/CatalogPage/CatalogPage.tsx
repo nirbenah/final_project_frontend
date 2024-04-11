@@ -45,6 +45,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ isUser, isLoading, set
   }
 
   useEffect(() => {
+    
     getEvents(page);
   }, [page, eventsPerPage]);
 
@@ -86,10 +87,19 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ isUser, isLoading, set
                           <h2 >{event.title}</h2>
                           <p style={{color:"grey"}}>{event.category} | {getDate(event.start_date)}</p>
                           <div style={{paddingTop:"20px"}}>
+                            {isUser ?
+                            <>
                             {event.tickets_available < 10 ?
                             <p style={{color:"rgba(255, 0, 0, 0.678)"}}><strong>Only {event.tickets_available} Tickets available!</strong> </p>:
                             <p><strong>{event.tickets_available} Tickets available</strong></p>}
                             <p><strong>Starting from {event.min_price}$</strong></p>
+                            </>: <>
+                            {event.tickets_available === 0 ? <p><strong>SOLD OUT</strong></p>:
+                            <>
+                            <p><strong>{event.tickets_available} Tickets available</strong></p>
+                            <p><strong>Starting from {event.min_price}$</strong></p>
+                            </>}
+                            </> }
                           </div>
                         </div>
                       </Link>

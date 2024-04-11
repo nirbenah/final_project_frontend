@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
-import './TicketsDisplayUser.css';
-import { Ticket } from '../../types';
+import '../TicketsDisplay.css';
+import { Ticket } from '../../../types';
 interface TicketsDisplayUserProps {
     tickets: Ticket[];
     buyTickets: (ticketType: string, quantity: number, price: number) => void;

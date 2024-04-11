@@ -76,7 +76,16 @@ export const Checkout: React.FC = () => {
         }
       );
     } else {
-      alert('Payment failed, please try again.');
+      if (purchaseResponse.status === APIStatus.BadRequest) {
+        alert('Tickets are no longer available :(');
+      }
+      else if (purchaseResponse.status === APIStatus.ServerError) {
+        alert('Payment failed due to server error, please try again later.');
+      }
+      else {
+        alert('Undefined error - Payment failed please try again later.');
+
+      }
     }
   };
 

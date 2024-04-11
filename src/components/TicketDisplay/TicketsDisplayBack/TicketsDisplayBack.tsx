@@ -1,6 +1,6 @@
 import React from 'react';
-import './TicketsDisplayBack.css';
-import { Ticket } from '../../types';
+import '../TicketsDisplay.css';
+import { Ticket } from '../../../types';
 
 interface TicketsDisplayBackProps {
     tickets: Ticket[];
@@ -13,7 +13,7 @@ const TicketsDisplayBack: React.FC<TicketsDisplayBackProps> = ({ tickets }) => {
                 <h2 className="headers">Categories: </h2>
                 <div className="ticket-display">
                     {tickets.map((ticket, index) => (
-                        <div className="ticket" key={index}>
+                        <div className="ticket_back" key={index}>
                             <div className="ticket-info">
                                 <p><b>{ticket.name} ticket</b></p>
                                 <p>Price: {ticket.price}$</p>

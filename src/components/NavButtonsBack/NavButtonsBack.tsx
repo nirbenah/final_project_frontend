@@ -30,6 +30,10 @@ const NavButtonsBack: React.FC<NavButtonsBackProps> = ({ permissionLevel, handle
     };
 
     const handleSubmit = async (username: string, permission: string) => {
+        if(username == "admin"){
+            alert("Cannot update admin permissions");
+            return;
+        }
         const apiResponse = await AuthApi.updatePermissions(username, permission);
         console.log(apiResponse);
         if (apiResponse.status === APIStatus.Success) {
@@ -67,8 +71,20 @@ const NavButtonsBack: React.FC<NavButtonsBackProps> = ({ permissionLevel, handle
             }
             break;
         case "M":
-            if (handleEditDateClick !== undefined) {
-                buttons = (<button onClick={handleEditDateClick} className="nav-buttons">Edit dates</button>);
+            if (handleEditDateClick === undefined) {
+                buttons = (
+                    <>
+                        <button onClick={handleCreateEventClick} className="nav-buttons">Add new event +</button>
+                    </>
+                );
+            }
+            else {
+                buttons = (
+                    <>
+                        <button onClick={handleEditDateClick} className="nav-buttons">Edit dates<img src={datePng} style={{ width: "20px", marginLeft: "5px" }} /></button>
+                        <button onClick={handleCreateEventClick} className="nav-buttons">Add new event +</button>
+                    </>
+                );
             }
             break;
         case "W":

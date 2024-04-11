@@ -40,12 +40,14 @@ export enum APIStatus {
     BadRequest,
     Unauthorized,
     NotFound,
-    ServerError
+    ServerError,
+    Forbidden,
+    Other
 }
 
 
-const API_GATEWAY_URL = "https://apigatewayandauth.onrender.com";
-// const API_GATEWAY_URL = "http://localhost:4000";
+// const API_GATEWAY_URL = "https://apigatewayandauth.onrender.com";
+const API_GATEWAY_URL = "http://localhost:4000";
 
 export const Api = {
 
@@ -164,7 +166,9 @@ const handleError = async (e: any): Promise<APIResponse> => {
         if (status == 404) {
             return { status: APIStatus.NotFound, data: e.response?.data };
         }
-        return { status: APIStatus.ServerError, data: e.response?.data };
+        if(status == 403){
+        return { status: APIStatus.Forbidden, data: e.response?.data };
+        }
     }
-    return { status: APIStatus.ServerError, data: e.message };
+    return { status: APIStatus.Other, data: e.message };
 };

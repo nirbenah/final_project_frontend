@@ -63,12 +63,24 @@ const CreateEventPage: React.FC = () => {
     if (res.status === APIStatus.Success) {
       console.log('Event created successfully');
       alert('Event created successfully');
-      navigate(0)
+      navigate(0);
     }
     else {
-      console.log('Failed to create event');
-      console.log(res.data);
-      setErrMsg("Error: " + res.data.error);
+      console.log('Failed to create event', res);
+      if(res.status === APIStatus.Forbidden){
+        setErrMsg("Not permitted user: " + res.data.error);
+        navigate(0);
+      }
+      else if(res.status === APIStatus.ServerError){
+        setErrMsg("Server Error: " + res.data.error);
+      }
+      else if(res.status === APIStatus.BadRequest){
+        setErrMsg("Bad Request: " + res.data.error);
+        console.log(res.data.error);
+      }
+      else{
+        setErrMsg('Failed to create event, please try again');
+      }
     }
   }
 
@@ -97,7 +109,6 @@ const CreateEventPage: React.FC = () => {
               </div>
             </div>
             <button className="orange-buttons" id="submit-button" form="event-form" type="submit">Submit Event</button>
-
           </>
         }
       </div>

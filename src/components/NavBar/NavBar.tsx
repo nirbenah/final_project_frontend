@@ -8,11 +8,10 @@ import { Link } from 'react-router-dom';
 import { AuthApi } from '../../api/authApi';
 import { APIStatus } from '../../api/Api';
 import ErrorPopup from '../ErrorPopUp/ErrorPopUp';
-import Loader from '../Loader/Loader';
 import { handleGetUserInfo, handleGetWorkerInfo } from '../../sessionManagment';
 import { LoginContext } from '../../LoginContext';
 import { useNavigate } from 'react-router-dom';
-import { fas } from '@fortawesome/free-solid-svg-icons';
+import { LOGIN_STATUS } from '../../sessionManagment';
 
 interface NavBarProps {
   isUser: boolean;
@@ -29,15 +28,18 @@ const NavBar: React.FC<NavBarProps> = ({ isUser, rightComponent, pageName }) => 
   const handlePermission = async () => {
     if (isUser) {
       const userRes = await handleGetUserInfo(setIsLoadingUser, username, setUsername, setPermission, setNextEvent);
-      if (userRes === false) {
+      if (userRes === LOGIN_STATUS.notLoggedIn) {
         alert('You do not have permission to access this page');
-        navigate('/main_user');
+        navigate('/login');
       }
     }
     else {
       console.log("worker")
       const workerRes = await handleGetWorkerInfo(setIsLoadingUser, username, setUsername, setPermission, pageName);
-      if (workerRes === false) {
+      if (workerRes === LOGIN_STATUS.notLoggedIn) {
+        alert('You do not have permission to access this page');
+        navigate('/login');
+      } else if (workerRes === LOGIN_STATUS.notPermitted) {
         alert('You do not have permission to access this page');
         navigate('/main_back');
       }

@@ -22,7 +22,7 @@ const AddTicket: React.FC<AddTicketFormProps> = ({ onSubmit }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if(ticket.quantity === 0 || ticket.price === 0 || ticket.name === '') {
-      alert('Please fill all fields');
+      alert('Ticket is not valid, name, quantity and price bigger then 0 are required.');
       return;
     }
     onSubmit(ticket);
